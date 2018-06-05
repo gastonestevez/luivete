@@ -19,14 +19,36 @@ class Cliente(models.Model):
         return self.nombre_texto
 
 class Mascota(models.Model):
+    sexo_choice = (
+        ('Macho','Macho'),
+        ('Hembra','Hembra'),
+    )
+
+    ambiente_choice = (
+        ('Casa','Casa'),
+        ('Departamento','Departamento'),
+        ('PH','PH'),
+        ('Campo','Campo'),
+        ('Calle','Calle'),
+    )
+
+    alimentacion_choice = (
+        ('Balanceado','Balanceado'),
+        ('Casero','Casero'),
+        ('Dieta','Dieta')
+    )
+
     owner = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     nombre_texto = models.CharField('Nombre',max_length=200)
     raza_texto = models.CharField('Raza',max_length=30, default='Sin completar')
     color_texto = models.CharField('Color',max_length=30,default= 'Sin completar')
-    sexo_texto = models.CharField('Sexo',max_length=10, default='Sin definir') # TODO << preguntar si es combo-box
-    edad_texto = models.IntegerField('Edad', default='0')
-    birthday_date = models.DateTimeField('Cumple', default=datetime.now(), blank=True, null=True)
-    deceso_date = models.DateTimeField('Deceso',blank=True, null=True)
+    sexo_texto = models.CharField('Sexo',choices=sexo_choice,max_length=15, default='Macho')
+    #edad_texto = models.IntegerField('Edad', default='0')
+    birthday_date = models.DateField('Cumple', default=datetime.now(), blank=True, null=True)
+    deceso_date = models.DateField('Deceso',blank=True, null=True)
+    ambiente = models.CharField('Ambiente', choices=ambiente_choice,default='Departamento',max_length=30)
+    alimentacion = models.CharField('Alimentacion',choices=alimentacion_choice,default='Balanceado',max_length=15)
+    alimentacion_frecuencia = models.IntegerField('Frecuencia de alimento por dia',default=0)
     foto = models.ImageField(upload_to="images",blank=True, null=True)
 
     def image_tag(self):
@@ -75,8 +97,7 @@ class HistorialTarjeta(models.Model):
     )
 
     nombre_mascota = models.ForeignKey(Mascota, on_delete=models.CASCADE)
-    ficha = models.TextField('Ficha')
-    fecha_realizada = models.DateTimeField('Fecha y Hora')
+    fecha_realizada = models.DateTimeField('Fecha y Hora', default=datetime.now())
     peso_texto = models.FloatField('Peso')
     temperatura_texto = models.FloatField('Temperatura')
     frecuencia_respiratoria_texto = models.FloatField('Frecuencia Respiratoria')
@@ -86,9 +107,9 @@ class HistorialTarjeta(models.Model):
     auscultacion_text = models.CharField('Auscultacion',choices=auscultacion_choice,max_length=20)
     auscultacion_ritmo_text = models.CharField('Auscultacion Ritmo',choices=auscultacion_ritmo_choice,max_length=20)
     auscultacion_sonidos_text = models.CharField('Auscultacion Sonidos',choices=auscultacion_sonidos_choice,max_length=20)
-    presencia_soplo_text = models.BooleanField('Presencia de Soplo')
     soplo_text = models.CharField('Dimension',choices=soplo_choice,max_length=20)
-
+    enObservasion_bool = models.BooleanField('En Observación')
+    ficha = models.TextField('Ficha')
 
     def __str__(self):
         return 'Historia clinica'

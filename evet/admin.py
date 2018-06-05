@@ -7,7 +7,7 @@ from .models import Mascota
 from .models import HistorialTarjeta
 from django.http import HttpResponse
 from django.shortcuts import render
-from datetime import datetime
+from datetime import datetime, date
 import csv
 from io import BytesIO
 from xhtml2pdf import pisa
@@ -20,25 +20,50 @@ from django.template.loader import render_to_string
 
 class HistorialInline(admin.StackedInline):
     model = HistorialTarjeta
-    fields = [
-                'fecha_realizada',
-                'peso_texto',
-                'temperatura_texto',
-                'frecuencia_respiratoria_texto',
-                'ficha',
-                'linfonodulos_texto',
-                'frecuencia_cardiaca',
-                'auscultacion_text',
-                'auscultacion_ritmo_text',
-                'auscultacion_sonidos_text',
-                'presencia_soplo_text',
-                'soplo_text',
-    ]
+    fieldsets = (
+        ('General',{
+            'fields': ('fecha_realizada',
+                       'peso_texto',
+                       'temperatura_texto',
+                       'frecuencia_respiratoria_texto',
+                       'linfonodulos_texto',)
+        }),
+        ('Sistema Circulatorio', {
+            'fields': ('auscultacion_text',
+                       'auscultacion_ritmo_text',
+                       'auscultacion_sonidos_text',
+                       'soplo_text',
+                       'enObservasion_bool',)
+        }),
+        ('Ficha', {
+            'fields': ('ficha',)
+        })
+    )
     extra = 0
+    ordering = ('-fecha_realizada',)
+    classes = ['collapse']
+
+class NuevoHistorialInline(admin.StackedInline):
+    model = HistorialTarjeta
+    extra = 0
+
+    def get_queryset(self, request):
+        # get the existing query set, then empty it.
+        qs = super(NuevoHistorialInline, self).get_queryset(request)
+        return qs.none()
 
 class MascotaListadoInline(admin.TabularInline):
     model = Mascota
-    fields = ['nombre_texto']
+    fields = ['nombre_texto',
+              'raza_texto',
+              'color_texto',
+              'sexo_texto',
+              'birthday_date',
+              'ambiente',
+              'alimentacion',
+              'alimentacion_frecuencia'
+              ]
+    show_change_link = True
     extra = 0
 
 
@@ -52,13 +77,56 @@ class HistorialAdmin(admin.ModelAdmin):
     list_display = ('nombre_mascota','ficha','fecha_realizada',)
     search_fields = ('nombre_mascota__nombre_texto','nombre_mascota__owner__nombre_texto')
 
+    fieldsets = (
+        (None, {
+            'fields': ('fecha_realizada',
+                'peso_texto',
+                'temperatura_texto',
+                'frecuencia_respiratoria_texto',
+                'linfonodulos_texto',)
+        }),
+        ('Sistema Circulatorio', {
+            'fields': ('auscultacion_text',
+                'auscultacion_ritmo_text',
+                'auscultacion_sonidos_text',
+                'soplo_text',
+                'enObservasion_bool',)
+        }),
+        ('Ficha', {
+            'fields': ('ficha',)
+        })
+    )
 
 class MascotaAdmin(admin.ModelAdmin):
     list_display = ('nombre_texto','owner','image_tag','id')
     search_fields = ('nombre_texto','owner__nombre_texto','id')
-    readonly_fields = ('image_tag',)
+
+    readonly_fields = ('get_edad','image_tag',)
     raw_id_fields = ('owner',)
-    inline = [HistorialInline]
+    inline = [NuevoHistorialInline,HistorialInline]
+
+    def get_edad(self,obj):
+        if(obj.birthday_date is not None):
+            hoy = date.today()
+            #edadFinal = str(edadYear) + ' años, ' + str(edadMonth) + ' meses, '+ str(edadDay) + ' dias.'
+            edadYear = hoy.year - obj.birthday_date.year - ((hoy.month, hoy.day) < (obj.birthday_date.month, obj.birthday_date.day))
+            edadMonth = 0
+
+            if (obj.birthday_date.month < hoy.month):
+                edadMonth = hoy.month - obj.birthday_date.month
+            elif (obj.birthday_date.month > hoy.month):
+                edadMonth = 12 - obj.birthday_date.month + hoy.month
+            else:
+                if(hoy.day > obj.birthday_date.day and hoy.year != obj.birthday_date.year):
+                    edadMonth = 12
+                else:
+                    edadMonth = 0
+
+            edadDay = datetime.now() - datetime(obj.birthday_date.year,obj.birthday_date.month,obj.birthday_date.day,0,0,0)
+            edadDias = edadDay.days - ((datetime.now().year-obj.birthday_date.year)*365)
+            return str(edadYear) + ' años ' + str(edadMonth) + ' mes(es) ' + str(edadDias) + ' dias.'
+        else:
+            return '0 años.'
 
     # Actions
     actions = ["exportar_historial","exportar_html","exportar_pdf"]
@@ -106,6 +174,6 @@ class MascotaAdmin(admin.ModelAdmin):
 
 # Register your models here.
 admin.site.register(Cliente, ClienteAdmin, inlines=[MascotaListadoInline])
-admin.site.register(Mascota, MascotaAdmin, inlines=[HistorialInline])
+admin.site.register(Mascota, MascotaAdmin, inlines=[NuevoHistorialInline, HistorialInline])
 admin.site.register(HistorialTarjeta, HistorialAdmin)
 
