@@ -11,8 +11,8 @@ from datetime import datetime, date
 import csv
 from io import BytesIO
 from xhtml2pdf import pisa
-from django.template.loader import get_template
 from django.template.loader import render_to_string
+from tabbed_admin import TabbedModelAdmin
 
 
 #Clases
@@ -41,7 +41,7 @@ class HistorialInline(admin.StackedInline):
     )
     extra = 0
     ordering = ('-fecha_realizada',)
-    classes = ['collapse']
+    #classes = ['collapse']
 
 class NuevoHistorialInline(admin.StackedInline):
     model = HistorialTarjeta
@@ -55,30 +55,53 @@ class NuevoHistorialInline(admin.StackedInline):
 class MascotaListadoInline(admin.TabularInline):
     model = Mascota
     fields = ['nombre_texto',
-              'raza_texto',
-              'color_texto',
-              'sexo_texto',
-              'birthday_date',
-              'ambiente',
-              'alimentacion',
-              'alimentacion_frecuencia'
+         #     'raza_texto',
+          #    'color_texto',
+           #   'sexo_texto',
+            #  'birthday_date',
+             # 'ambiente',
+              #'alimentacion',
+              #'alimentacion_frecuencia'
               ]
     show_change_link = True
     extra = 0
 
 
-class ClienteAdmin(admin.ModelAdmin):
+class ClienteAdmin(TabbedModelAdmin):
     list_display = ('nombre_texto','direccion_texto','celular_texto','id')
     readonly_fields = ('id',)
     search_fields = ('nombre_texto','direccion_texto','celular_texto','tel_texto')
     inline = [MascotaListadoInline]
+    fields = (
+        'nombre_texto',
+        ('direccion_texto','codigopostal_texto'),
+        ('tel_texto','celular_texto'),
+        'mail_texto',
+        'inscripcion_date',
+    )
+    tab_mascota = (MascotaListadoInline,)
+    tab_cliente = (
+    ('General',{
+        'fields':('nombre_texto','inscripcion_date')
+    }),
+        ('Ubicación',{
+            'fields':(('direccion_texto','codigopostal_texto'),)
+    }),
+    ('Comunicación',{
+        'fields':(('tel_texto','celular_texto'),'mail_texto')
+    })
+    )
+    tabs = [
+        ('Cliente',tab_cliente),
+        ('Mascotas',tab_mascota)
+    ]
 
 class HistorialAdmin(admin.ModelAdmin):
     list_display = ('nombre_mascota','ficha','fecha_realizada',)
     search_fields = ('nombre_mascota__nombre_texto','nombre_mascota__owner__nombre_texto')
 
     fieldsets = (
-        (None, {
+        ('General', {
             'fields': ('fecha_realizada',
                 'peso_texto',
                 'temperatura_texto',
@@ -97,14 +120,32 @@ class HistorialAdmin(admin.ModelAdmin):
         })
     )
 
-class MascotaAdmin(admin.ModelAdmin):
+class MascotaAdmin(TabbedModelAdmin):
     list_display = ('nombre_texto','owner','image_tag','id')
     search_fields = ('nombre_texto','owner__nombre_texto','id')
 
     readonly_fields = ('get_edad','image_tag',)
     raw_id_fields = ('owner',)
-    inline = [NuevoHistorialInline,HistorialInline]
-
+    #inline = [HistorialInline]
+    tab_mascota = (
+        ('General',{
+            'fields':('nombre_texto',
+                      ('raza_texto','color_texto','sexo_texto'),
+                      'birthday_date','get_edad','deceso_date','causa_deceso',
+                      'ambiente',
+                      ('alimentacion','alimentacion_frecuencia'),
+                      ('foto','image_tag')
+                      )
+        }),
+    )
+    tab_historial = (
+        NuevoHistorialInline,
+        HistorialInline,
+    )
+    tabs = [
+        ('Informacion',tab_mascota),
+        ('Historial Clinico',tab_historial)
+    ]
     def get_edad(self,obj):
         if(obj.birthday_date is not None):
             hoy = date.today()
@@ -127,6 +168,7 @@ class MascotaAdmin(admin.ModelAdmin):
             return str(edadYear) + ' años ' + str(edadMonth) + ' mes(es) ' + str(edadDias) + ' dias.'
         else:
             return '0 años.'
+    get_edad.short_description = "Edad"
 
     # Actions
     actions = ["exportar_historial","exportar_html","exportar_pdf"]

@@ -10,8 +10,8 @@ class Cliente(models.Model):
     nombre_texto = models.CharField('Nombre y Apellido',max_length=200)
     direccion_texto = models.CharField('Domicilio', max_length=200)
     codigopostal_texto = models.IntegerField('Codigo Postal')
-    tel_texto = models.IntegerField('Telefono')
-    celular_texto = models.IntegerField('Celular')
+    tel_texto = models.CharField('Telefono',max_length=40)
+    celular_texto = models.CharField('Celular',max_length=40)
     mail_texto = models.CharField('Email',max_length=200)
     inscripcion_date = models.DateField('Fecha de inscripcion')
 
@@ -46,6 +46,7 @@ class Mascota(models.Model):
     #edad_texto = models.IntegerField('Edad', default='0')
     birthday_date = models.DateField('Cumple', default=datetime.now(), blank=True, null=True)
     deceso_date = models.DateField('Deceso',blank=True, null=True)
+    causa_deceso = models.CharField('Causa del deceso',blank=True,null=True,max_length=50)
     ambiente = models.CharField('Ambiente', choices=ambiente_choice,default='Departamento',max_length=30)
     alimentacion = models.CharField('Alimentacion',choices=alimentacion_choice,default='Balanceado',max_length=15)
     alimentacion_frecuencia = models.IntegerField('Frecuencia de alimento por dia',default=0)
