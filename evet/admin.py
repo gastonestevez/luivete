@@ -21,7 +21,37 @@ from tabbed_admin import TabbedModelAdmin
 class HistorialInline(admin.StackedInline):
     model = HistorialTarjeta
     fieldsets = (
-        ('General',{
+        ('EOG',{
+            'fields': ('fecha_realizada',
+                       ('peso_texto','temperatura_texto','frecuencia_respiratoria_texto','linfonodulos_texto'),
+                       )
+        }),
+        ('Sistema Circulatorio', {
+            'fields': (('auscultacion_text',
+                       'auscultacion_ritmo_text',
+                       'auscultacion_sonidos_text',
+                       'soplo_text',
+                       'enObservasion_bool',),)
+        }),
+        ('Ficha', {
+            'fields': ('ficha',)
+        })
+    )
+    extra = 0
+    ordering = ('-fecha_realizada',)
+    classes = ['collapse']
+
+class NuevoHistorialInline(admin.StackedInline):
+    model = HistorialTarjeta
+    extra = 0
+
+    def get_queryset(self, request):
+        # get the existing query set, then empty it.
+        qs = super(NuevoHistorialInline, self).get_queryset(request)
+        return qs.none()
+
+    fieldsets = (
+        ('General', {
             'fields': ('fecha_realizada',
                        'peso_texto',
                        'temperatura_texto',
@@ -39,18 +69,6 @@ class HistorialInline(admin.StackedInline):
             'fields': ('ficha',)
         })
     )
-    extra = 0
-    ordering = ('-fecha_realizada',)
-    #classes = ['collapse']
-
-class NuevoHistorialInline(admin.StackedInline):
-    model = HistorialTarjeta
-    extra = 0
-
-    def get_queryset(self, request):
-        # get the existing query set, then empty it.
-        qs = super(NuevoHistorialInline, self).get_queryset(request)
-        return qs.none()
 
 class MascotaListadoInline(admin.TabularInline):
     model = Mascota
@@ -129,11 +147,12 @@ class MascotaAdmin(TabbedModelAdmin):
     #inline = [HistorialInline]
     tab_mascota = (
         ('General',{
-            'fields':('nombre_texto',
+            'fields':('owner',
+                      'nombre_texto',
                       ('raza_texto','color_texto','sexo_texto'),
                       'birthday_date','get_edad','deceso_date','causa_deceso',
                       'ambiente',
-                      ('alimentacion','alimentacion_frecuencia'),
+                      ('alimentacion','alimentacion_frecuencia','medicado_observacion'),
                       ('foto','image_tag')
                       )
         }),
@@ -146,7 +165,7 @@ class MascotaAdmin(TabbedModelAdmin):
         ('Informacion',tab_mascota),
         ('Historial Clinico',tab_historial)
     ]
-    def get_edad(self,obj):
+    def get_edad(self,obj): #Esta para el ogt esto TODO
         if(obj.birthday_date is not None):
             hoy = date.today()
             #edadFinal = str(edadYear) + ' años, ' + str(edadMonth) + ' meses, '+ str(edadDay) + ' dias.'

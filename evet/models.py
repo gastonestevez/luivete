@@ -35,7 +35,7 @@ class Mascota(models.Model):
     alimentacion_choice = (
         ('Balanceado','Balanceado'),
         ('Casero','Casero'),
-        ('Dieta','Dieta')
+        ('Medicado','Medicado')
     )
 
     owner = models.ForeignKey(Cliente, on_delete=models.CASCADE)
@@ -44,11 +44,12 @@ class Mascota(models.Model):
     color_texto = models.CharField('Color',max_length=30,default= 'Sin completar')
     sexo_texto = models.CharField('Sexo',choices=sexo_choice,max_length=15, default='Macho')
     #edad_texto = models.IntegerField('Edad', default='0')
-    birthday_date = models.DateField('Cumple', default=datetime.now(), blank=True, null=True)
+    birthday_date = models.DateField('Nacimiento', default=datetime.now(), blank=True, null=True)
     deceso_date = models.DateField('Deceso',blank=True, null=True)
     causa_deceso = models.CharField('Causa del deceso',blank=True,null=True,max_length=50)
     ambiente = models.CharField('Ambiente', choices=ambiente_choice,default='Departamento',max_length=30)
     alimentacion = models.CharField('Alimentacion',choices=alimentacion_choice,default='Balanceado',max_length=15)
+    medicado_observacion = models.CharField('Observacion',blank=True,null=True,max_length=100)
     alimentacion_frecuencia = models.IntegerField('Frecuencia de alimento por dia',default=0)
     foto = models.ImageField(upload_to="images",blank=True, null=True)
 
@@ -102,7 +103,7 @@ class HistorialTarjeta(models.Model):
     peso_texto = models.FloatField('Peso')
     temperatura_texto = models.FloatField('Temperatura')
     frecuencia_respiratoria_texto = models.FloatField('Frecuencia Respiratoria')
-    linfonodulos_texto = models.CharField('Linfonódulos',max_length=50)
+    linfonodulos_texto = models.CharField('LFN',max_length=50)
     #Sistema Circulatorio
     frecuencia_cardiaca = models.FloatField('Frecuencia Cardiaca')
     auscultacion_text = models.CharField('Auscultacion',choices=auscultacion_choice,max_length=20)
