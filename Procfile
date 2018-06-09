@@ -1,1 +1,1 @@
-web: gunicorn luivet.wsgi --log-file -
+web: gunicorn vetapp.wsgi --log-file -
