@@ -148,8 +148,8 @@ class MascotaAdmin(TabbedModelAdmin):
     tab_mascota = (
         ('General',{
             'fields':('owner',
-                      'nombre_texto',
-                      ('raza_texto','color_texto','sexo_texto'),
+                      ('nombre_texto','chip'),
+                      ('raza_texto','color_texto','sexo_texto','esterilizado'),
                       'birthday_date','get_edad','deceso_date','causa_deceso',
                       'ambiente',
                       ('alimentacion','alimentacion_frecuencia','medicado_observacion'),
