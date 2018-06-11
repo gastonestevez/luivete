@@ -27,7 +27,8 @@ class HistorialInline(admin.StackedInline):
                        )
         }),
         ('Sistema Circulatorio', {
-            'fields': (('auscultacion_text',
+            'fields': (('frecuencia_cardiaca',
+                       'auscultacion_text',
                        'auscultacion_ritmo_text',
                        'auscultacion_sonidos_text',
                        'soplo_text',
@@ -51,19 +52,18 @@ class NuevoHistorialInline(admin.StackedInline):
         return qs.none()
 
     fieldsets = (
-        ('General', {
+        ('EOG', {
             'fields': ('fecha_realizada',
-                       'peso_texto',
-                       'temperatura_texto',
-                       'frecuencia_respiratoria_texto',
-                       'linfonodulos_texto',)
+                       ('peso_texto', 'temperatura_texto', 'frecuencia_respiratoria_texto', 'linfonodulos_texto'),
+                       )
         }),
         ('Sistema Circulatorio', {
-            'fields': ('auscultacion_text',
-                       'auscultacion_ritmo_text',
-                       'auscultacion_sonidos_text',
-                       'soplo_text',
-                       'enObservasion_bool',)
+            'fields': (('frecuencia_cardiaca',
+                        'auscultacion_text',
+                        'auscultacion_ritmo_text',
+                        'auscultacion_sonidos_text',
+                        'soplo_text',
+                        'enObservasion_bool',),)
         }),
         ('Ficha', {
             'fields': ('ficha',)
