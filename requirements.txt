@@ -5,3 +5,4 @@ django_tabbed_admin==1.0.3
 sorl_thumbnail==12.4.1
 psycopg2
 gunicorn
+dj_database_url
