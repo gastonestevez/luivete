@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'sorl.thumbnail',
     'tabbed_admin',
+    'stdimage',
 ]
 
 MIDDLEWARE = [

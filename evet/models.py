@@ -117,3 +117,25 @@ class HistorialTarjeta(models.Model):
 
     def __str__(self):
         return 'Historia Visita'
+
+
+class Producto(models.Model):
+    tipo_choice = (
+        ('Vacuna','Vacuna'),
+        ('Medicamento','Medicamento'),
+        ('Otro Producto','Otro Producto')
+    )
+    nombre = models.CharField('Producto',max_length=50)
+    referencia = models.CharField('ID de Referencia', max_length=10)
+    tipo = models.CharField('Categoria',choices=tipo_choice,max_length=25)
+
+    def __str__(self):
+        return ''+str(self.nombre)
+
+class Aplicacion(models.Model):
+    nombre_aplicacion = models.ForeignKey(Producto,on_delete=models.CASCADE)
+    visita_aplicada = models.ForeignKey(HistorialTarjeta,on_delete=models.CASCADE)
+    fecha_proxima_visita = models.DateField('Fecha de proxima visita', null=True,blank=True)
+
+    def __str__(self):
+        return 'Aplicacion'

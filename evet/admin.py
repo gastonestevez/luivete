@@ -5,6 +5,8 @@ from django.contrib import admin
 from .models import Cliente
 from .models import Mascota
 from .models import HistorialTarjeta
+from .models import Aplicacion
+from .models import Producto
 from django.http import HttpResponse
 from django.shortcuts import render
 from datetime import datetime, date
@@ -13,13 +15,19 @@ from io import BytesIO
 from xhtml2pdf import pisa
 from django.template.loader import render_to_string
 from tabbed_admin import TabbedModelAdmin
-
-
+from django.template.loader import get_template
+from cStringIO import StringIO
 #Clases
 
+class AplicacionInline(admin.TabularInline):
+    raw_id_fields = ('nombre_aplicacion',)
+    model = Aplicacion
+    extra = 0
 
 class HistorialInline(admin.StackedInline):
+    save_on_top = True
     model = HistorialTarjeta
+    inlines = [AplicacionInline]
     fieldsets = (
         ('EOG',{
             'fields': ('fecha_realizada',
@@ -36,15 +44,17 @@ class HistorialInline(admin.StackedInline):
         }),
         ('Ficha', {
             'fields': ('ficha',)
-        })
+        }),
     )
     extra = 0
     ordering = ('-fecha_realizada',)
     classes = ['collapse']
 
 class NuevoHistorialInline(admin.StackedInline):
+    save_on_top = True
     model = HistorialTarjeta
     extra = 0
+    inlines=[AplicacionInline]
 
     def get_queryset(self, request):
         # get the existing query set, then empty it.
@@ -117,7 +127,7 @@ class ClienteAdmin(TabbedModelAdmin):
 class HistorialAdmin(admin.ModelAdmin):
     list_display = ('nombre_mascota','ficha','fecha_realizada',)
     search_fields = ('nombre_mascota__nombre_texto','nombre_mascota__owner__nombre_texto')
-
+    inline = [AplicacionInline]
     fieldsets = (
         ('General', {
             'fields': ('fecha_realizada',
@@ -141,10 +151,10 @@ class HistorialAdmin(admin.ModelAdmin):
 class MascotaAdmin(TabbedModelAdmin):
     list_display = ('nombre_texto','owner','image_tag','id')
     search_fields = ('nombre_texto','owner__nombre_texto','id')
-
+    save_on_top = True
     readonly_fields = ('get_edad','image_tag',)
     raw_id_fields = ('owner',)
-    #inline = [HistorialInline]
+    inline = [HistorialInline]
     tab_mascota = (
         ('General',{
             'fields':('owner',
@@ -191,6 +201,7 @@ class MascotaAdmin(TabbedModelAdmin):
 
     # Actions
     actions = ["exportar_historial","exportar_html","exportar_pdf"]
+
     def exportar_html(self,request,queryset):
         historiales = HistorialTarjeta.objects.filter(nombre_mascota__nombre_texto=queryset[0])
         return render(request,'admin/exportacion.html', context={'Mascotas':queryset,
@@ -203,9 +214,10 @@ class MascotaAdmin(TabbedModelAdmin):
                    'Historiales': historiales,
                    'FECHA_DE_HOY': datetime.now(),
                    }
-        html = render_to_string('admin/exportacion.html', contexto)
-        result = BytesIO()
-        pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")),result)
+        template = get_template('admin/exportacion.html')
+        html = template.render(contexto)
+        result = StringIO()
+        pdf = pisa.pisaDocument(StringIO(html.encode("UTF-8")),result)
 
         if not pdf.err:
             return HttpResponse(result.getvalue(),content_type='application/pdf')
@@ -232,9 +244,18 @@ class MascotaAdmin(TabbedModelAdmin):
     exportar_html.short_description = "Exportar Historial a HTML"
     exportar_pdf.short_description = "Exportar Historial a PDF"
 
+class ProductoAdmin(admin.ModelAdmin):
+    list_display = ('nombre','referencia','tipo')
+    search_fields = ('nombre','referencia')
+    fieldsets = (
+        (None,{
+            'fields':(('nombre','referencia','tipo'),)
+        }),
+    )
+
 
 # Register your models here.
 admin.site.register(Cliente, ClienteAdmin, inlines=[MascotaListadoInline])
 admin.site.register(Mascota, MascotaAdmin, inlines=[NuevoHistorialInline, HistorialInline])
-admin.site.register(HistorialTarjeta, HistorialAdmin)
-
+admin.site.register(HistorialTarjeta, HistorialAdmin, inlines=[AplicacionInline])
+admin.site.register(Producto,ProductoAdmin)

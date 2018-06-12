@@ -6,3 +6,4 @@ sorl_thumbnail==12.4.1
 psycopg2
 gunicorn
 dj_database_url
+django-stdimage
