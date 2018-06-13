@@ -6,6 +6,22 @@ from sorl.thumbnail import get_thumbnail
 from datetime import datetime
 
 # Create your models here.
+
+class Producto(models.Model):
+    tipo_choice = (
+        ('Vacuna','Vacuna'),
+        ('Medicamento','Medicamento'),
+        ('Otro Producto','Otro Producto')
+    )
+    nombre = models.CharField('Producto',max_length=50)
+    referencia = models.CharField('ID de Referencia', max_length=10)
+    tipo = models.CharField('Categoria',choices=tipo_choice,max_length=25)
+    proxima_aplicacion = models.DateField('Proxima aplicación',blank=True,null=True)
+
+    def __str__(self):
+        return ''+str(self.nombre)
+
+
 class Cliente(models.Model):
     nombre_texto = models.CharField('Nombre y Apellido',max_length=200)
     direccion_texto = models.CharField('Domicilio', max_length=200)
@@ -72,6 +88,10 @@ class Mascota(models.Model):
     def __str__(self):
         return self.nombre_texto
 
+
+
+
+
 class HistorialTarjeta(models.Model):
     auscultacion_choice = (
         ('Bradicardia','Bradicardia'),
@@ -114,28 +134,19 @@ class HistorialTarjeta(models.Model):
     soplo_text = models.CharField('Dimension',choices=soplo_choice,max_length=20)
     enObservasion_bool = models.BooleanField('En Observación')
     ficha = models.TextField('Ficha')
+    aplicacion_text = models.ManyToManyField(Producto, verbose_name='Aplicaciones')
 
     def __str__(self):
-        return 'Historia Visita'
+        return str(self.fecha_realizada.strftime("%d-%m-%Y"))
 
-
-class Producto(models.Model):
-    tipo_choice = (
-        ('Vacuna','Vacuna'),
-        ('Medicamento','Medicamento'),
-        ('Otro Producto','Otro Producto')
-    )
-    nombre = models.CharField('Producto',max_length=50)
-    referencia = models.CharField('ID de Referencia', max_length=10)
-    tipo = models.CharField('Categoria',choices=tipo_choice,max_length=25)
-
-    def __str__(self):
-        return ''+str(self.nombre)
+    class Meta:
+        verbose_name = 'Visita'
+        verbose_name_plural = 'Visitas'
 
 class Aplicacion(models.Model):
-    nombre_aplicacion = models.ForeignKey(Producto,on_delete=models.CASCADE)
-    visita_aplicada = models.ForeignKey(HistorialTarjeta,on_delete=models.CASCADE)
+    nombre_aplicacion = models.ManyToManyField(Producto)
     fecha_proxima_visita = models.DateField('Fecha de proxima visita', null=True,blank=True)
+    pet = models.ForeignKey(HistorialTarjeta)
 
     def __str__(self):
         return 'Aplicacion'

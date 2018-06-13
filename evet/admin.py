@@ -17,6 +17,7 @@ from django.template.loader import render_to_string
 from tabbed_admin import TabbedModelAdmin
 from django.template.loader import get_template
 from cStringIO import StringIO
+from dynamic_raw_id.admin import DynamicRawIDMixin
 #Clases
 
 class AplicacionInline(admin.TabularInline):
@@ -24,10 +25,12 @@ class AplicacionInline(admin.TabularInline):
     model = Aplicacion
     extra = 0
 
-class HistorialInline(admin.StackedInline):
+class HistorialInline(DynamicRawIDMixin,admin.StackedInline):
     save_on_top = True
     model = HistorialTarjeta
     inlines = [AplicacionInline]
+    dynamic_raw_id_fields = ('aplicacion_text',)
+    #readonly_fields = ('aplicacion_text',)
     fieldsets = (
         ('EOG',{
             'fields': ('fecha_realizada',
@@ -43,18 +46,19 @@ class HistorialInline(admin.StackedInline):
                        'enObservasion_bool',),)
         }),
         ('Ficha', {
-            'fields': ('ficha',)
+            'fields': ('ficha','aplicacion_text',)
         }),
     )
     extra = 0
     ordering = ('-fecha_realizada',)
     classes = ['collapse']
 
-class NuevoHistorialInline(admin.StackedInline):
+class NuevoHistorialInline(DynamicRawIDMixin,admin.StackedInline):
     save_on_top = True
     model = HistorialTarjeta
     extra = 0
     inlines=[AplicacionInline]
+    dynamic_raw_id_fields = ('aplicacion_text',)
 
     def get_queryset(self, request):
         # get the existing query set, then empty it.
@@ -76,21 +80,14 @@ class NuevoHistorialInline(admin.StackedInline):
                         'enObservasion_bool',),)
         }),
         ('Ficha', {
-            'fields': ('ficha',)
+            'fields': ('ficha','aplicacion_text')
         })
     )
 
+
 class MascotaListadoInline(admin.TabularInline):
     model = Mascota
-    fields = ['nombre_texto',
-         #     'raza_texto',
-          #    'color_texto',
-           #   'sexo_texto',
-            #  'birthday_date',
-             # 'ambiente',
-              #'alimentacion',
-              #'alimentacion_frecuencia'
-              ]
+    fields = ['nombre_texto',]
     show_change_link = True
     extra = 0
 
@@ -144,7 +141,7 @@ class HistorialAdmin(admin.ModelAdmin):
                 'enObservasion_bool',)
         }),
         ('Ficha', {
-            'fields': ('ficha',)
+            'fields': ('ficha','aplicacion_text'),
         })
     )
 
@@ -245,11 +242,11 @@ class MascotaAdmin(TabbedModelAdmin):
     exportar_pdf.short_description = "Exportar Historial a PDF"
 
 class ProductoAdmin(admin.ModelAdmin):
-    list_display = ('nombre','referencia','tipo')
+    list_display = ('nombre','referencia','tipo','proxima_aplicacion')
     search_fields = ('nombre','referencia')
     fieldsets = (
         (None,{
-            'fields':(('nombre','referencia','tipo'),)
+            'fields':(('nombre','referencia','tipo','proxima_aplicacion'),)
         }),
     )
 

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'tabbed_admin',
     'stdimage',
+    'dynamic_raw_id',
 ]
 
 MIDDLEWARE = [
