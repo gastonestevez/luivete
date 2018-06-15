@@ -17,7 +17,6 @@ from xhtml2pdf import pisa
 from django.template.loader import render_to_string
 from tabbed_admin import TabbedModelAdmin
 from django.template.loader import get_template
-from cStringIO import StringIO
 from dynamic_raw_id.admin import DynamicRawIDMixin
 #Clases
 
@@ -205,7 +204,7 @@ class MascotaAdmin(TabbedModelAdmin):
         return render(request,'admin/exportacion.html', context={'Mascotas':queryset,
                                                                  'Historiales':historiales,
                                                                  'FECHA_DE_HOY':datetime.now()})
-
+#TODO IMPLEMENTAR BIEN ESTE METODO !! 
     def exportar_pdf(self,request,queryset):
         historiales = HistorialTarjeta.objects.filter(nombre_mascota__nombre_texto=queryset[0])
         contexto = {'Mascotas': queryset,
@@ -214,11 +213,11 @@ class MascotaAdmin(TabbedModelAdmin):
                    }
         template = get_template('admin/exportacion.html')
         html = template.render(contexto)
-        result = StringIO()
-        pdf = pisa.pisaDocument(StringIO(html.encode("UTF-8")),result)
+        result = BytesIO
+        #pdf = pisa.pisaDocument(BytesIO(.encode("UTF-8")),result)
 
-        if not pdf.err:
-            return HttpResponse(result.getvalue(),content_type='application/pdf')
+        #if not pdf.err:
+         #   return HttpResponse(result.getvalue(),content_type='application/pdf')
         return None
 
     #CSV <<
