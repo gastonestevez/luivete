@@ -7,6 +7,7 @@ from .models import Mascota
 from .models import HistorialTarjeta
 from .models import Aplicacion
 from .models import Producto
+from .models import Turno
 from django.http import HttpResponse
 from django.shortcuts import render
 from datetime import datetime, date
@@ -250,9 +251,14 @@ class ProductoAdmin(admin.ModelAdmin):
         }),
     )
 
+class TurnoAdmin(admin.ModelAdmin):
+    extra = 0
+    list_display = ('fecha',)
+
 
 # Register your models here.
 admin.site.register(Cliente, ClienteAdmin, inlines=[MascotaListadoInline])
 admin.site.register(Mascota, MascotaAdmin, inlines=[NuevoHistorialInline, HistorialInline])
 admin.site.register(HistorialTarjeta, HistorialAdmin, inlines=[AplicacionInline])
 admin.site.register(Producto,ProductoAdmin)
+admin.site.register(Turno,TurnoAdmin)

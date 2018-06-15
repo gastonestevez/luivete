@@ -16,7 +16,7 @@ class Producto(models.Model):
     nombre = models.CharField('Producto',max_length=50)
     referencia = models.CharField('ID de Referencia', max_length=10)
     tipo = models.CharField('Categoria',choices=tipo_choice,max_length=25)
-    proxima_aplicacion = models.DateField('Proxima aplicación',blank=True,null=True)
+    proxima_aplicacion = models.IntegerField('Proxima aplicación en dias',blank=True,null=True)
 
     def __str__(self):
         return ''+str(self.nombre)
@@ -89,7 +89,9 @@ class Mascota(models.Model):
         return self.nombre_texto
 
 
-
+class Turno(models.Model):
+    fecha = models.DateTimeField('Proxima visita')
+    nota = models.TextField('Nota',blank=True,null=True)
 
 
 class HistorialTarjeta(models.Model):
@@ -134,14 +136,24 @@ class HistorialTarjeta(models.Model):
     soplo_text = models.CharField('Dimension',choices=soplo_choice,max_length=20)
     enObservasion_bool = models.BooleanField('En Observación')
     ficha = models.TextField('Ficha')
-    aplicacion_text = models.ManyToManyField(Producto, verbose_name='Aplicaciones')
+    aplicacion_text = models.ManyToManyField(Producto, verbose_name='Aplicaciones', blank=True,null=True)
+    turno = models.ManyToManyField(Turno,verbose_name='Turnos')
 
     def __str__(self):
         return str(self.fecha_realizada.strftime("%d-%m-%Y"))
 
+    def save(self, *args, **kwargs):
+        turnito = Turno(
+            fecha=datetime.now(),
+            nota='ok, agregamos turno a: ' + str(self.nombre_mascota)
+        )
+        turnito.save()
+        super(HistorialTarjeta, self).save(*args, **kwargs)
+
     class Meta:
         verbose_name = 'Visita'
         verbose_name_plural = 'Visitas'
+
 
 class Aplicacion(models.Model):
     nombre_aplicacion = models.ManyToManyField(Producto)

@@ -2,14 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a707146-d9ce-446f-917a-9489d3b7cb9e" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/admin/dynamic_raw_id/vetapp/multi_Producto.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/evet/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/evet/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vetapp/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/vetapp/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vetapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/vetapp/urls.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,14 +14,14 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.4173291">
+    <splitter split-orientation="horizontal" split-proportion="0.44117647">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/evet/models.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state>
-                  <caret line="119" column="23" selection-start-line="119" selection-start-column="23" selection-end-line="119" selection-end-column="23" />
+                  <caret line="121" column="23" selection-start-line="121" selection-start-column="23" selection-end-line="121" selection-end-column="23" />
                   <folding>
                     <element signature="e#24#63#0" expanded="true" />
                   </folding>
@@ -49,8 +44,8 @@
           <file leaf-file-name="admin.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/evet/admin.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="431">
-                  <caret line="244" column="68" selection-start-line="244" selection-start-column="68" selection-end-line="244" selection-end-column="68" />
+                <state relative-caret-position="641">
+                  <caret line="263" column="37" lean-forward="true" selection-start-line="263" selection-start-column="37" selection-end-line="263" selection-end-column="37" />
                   <folding>
                     <element signature="e#24#63#0" expanded="true" />
                   </folding>
@@ -65,8 +60,8 @@
           <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/evet/models.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2025">
-                  <caret line="135" column="37" lean-forward="true" selection-start-line="135" selection-start-column="37" selection-end-line="135" selection-end-column="37" />
+                <state relative-caret-position="-843">
+                  <caret line="18" column="72" selection-start-line="18" selection-start-column="72" selection-end-line="18" selection-end-column="72" />
                   <folding>
                     <element signature="e#24#63#0" expanded="true" />
                   </folding>
@@ -274,6 +269,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="878" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12638889" />
       <window_info anchor="bottom" id="TODO" order="12" />
@@ -652,7 +648,7 @@
     <entry file="file://$PROJECT_DIR$/evet/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret line="119" column="23" selection-start-line="119" selection-start-column="23" selection-end-line="119" selection-end-column="23" />
+          <caret line="121" column="23" selection-start-line="121" selection-start-column="23" selection-end-line="121" selection-end-column="23" />
           <folding>
             <element signature="e#24#63#0" expanded="true" />
           </folding>
@@ -661,8 +657,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/evet/admin.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="431">
-          <caret line="244" column="68" selection-start-line="244" selection-start-column="68" selection-end-line="244" selection-end-column="68" />
+        <state relative-caret-position="641">
+          <caret line="263" column="37" lean-forward="true" selection-start-line="263" selection-start-column="37" selection-end-line="263" selection-end-column="37" />
           <folding>
             <element signature="e#24#63#0" expanded="true" />
           </folding>
