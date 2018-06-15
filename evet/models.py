@@ -57,7 +57,7 @@ class Mascota(models.Model):
     owner = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     nombre_texto = models.CharField('Nombre',max_length=200)
     chip = models.CharField('Chip', max_length=200,blank=True,null=True)
-    esterilizado = models.BooleanField('Esterilizado?')
+    esterilizado = models.BooleanField('Esterilizado?',default=False)
     raza_texto = models.CharField('Raza',max_length=30, default='Sin completar')
     color_texto = models.CharField('Color',max_length=30,default= 'Sin completar')
     sexo_texto = models.CharField('Sexo',choices=sexo_choice,max_length=15, default='Macho')
