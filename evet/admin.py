@@ -5,7 +5,6 @@ from django.contrib import admin
 from .models import Cliente
 from .models import Mascota
 from .models import HistorialTarjeta
-from .models import Aplicacion
 from .models import Producto
 from .models import Turno
 from django.http import HttpResponse
@@ -18,17 +17,12 @@ from django.template.loader import render_to_string
 from tabbed_admin import TabbedModelAdmin
 from django.template.loader import get_template
 from dynamic_raw_id.admin import DynamicRawIDMixin
-#Clases
 
-class AplicacionInline(admin.TabularInline):
-    raw_id_fields = ('nombre_aplicacion',)
-    model = Aplicacion
-    extra = 0
+#Clases
 
 class HistorialInline(DynamicRawIDMixin,admin.StackedInline):
     save_on_top = True
     model = HistorialTarjeta
-    inlines = [AplicacionInline]
     dynamic_raw_id_fields = ('aplicacion_text',)
     #readonly_fields = ('aplicacion_text',)
     fieldsets = (
@@ -57,7 +51,6 @@ class NuevoHistorialInline(DynamicRawIDMixin,admin.StackedInline):
     save_on_top = True
     model = HistorialTarjeta
     extra = 0
-    inlines=[AplicacionInline]
     dynamic_raw_id_fields = ('aplicacion_text',)
 
     def get_queryset(self, request):
@@ -124,7 +117,6 @@ class ClienteAdmin(TabbedModelAdmin):
 class HistorialAdmin(admin.ModelAdmin):
     list_display = ('nombre_mascota','ficha','fecha_realizada',)
     search_fields = ('nombre_mascota__nombre_texto','nombre_mascota__owner__nombre_texto')
-    inline = [AplicacionInline]
     fieldsets = (
         ('General', {
             'fields': ('fecha_realizada',
@@ -204,7 +196,7 @@ class MascotaAdmin(TabbedModelAdmin):
         return render(request,'admin/exportacion.html', context={'Mascotas':queryset,
                                                                  'Historiales':historiales,
                                                                  'FECHA_DE_HOY':datetime.now()})
-#TODO IMPLEMENTAR BIEN ESTE METODO !! 
+#TODO IMPLEMENTAR BIEN ESTE METODO !!
     def exportar_pdf(self,request,queryset):
         historiales = HistorialTarjeta.objects.filter(nombre_mascota__nombre_texto=queryset[0])
         contexto = {'Mascotas': queryset,
@@ -258,6 +250,6 @@ class TurnoAdmin(admin.ModelAdmin):
 # Register your models here.
 admin.site.register(Cliente, ClienteAdmin, inlines=[MascotaListadoInline])
 admin.site.register(Mascota, MascotaAdmin, inlines=[NuevoHistorialInline, HistorialInline])
-admin.site.register(HistorialTarjeta, HistorialAdmin, inlines=[AplicacionInline])
+admin.site.register(HistorialTarjeta, HistorialAdmin,)
 admin.site.register(Producto,ProductoAdmin)
 admin.site.register(Turno,TurnoAdmin)

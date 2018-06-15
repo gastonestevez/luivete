@@ -153,12 +153,3 @@ class HistorialTarjeta(models.Model):
     class Meta:
         verbose_name = 'Visita'
         verbose_name_plural = 'Visitas'
-
-
-class Aplicacion(models.Model):
-    nombre_aplicacion = models.ManyToManyField(Producto)
-    fecha_proxima_visita = models.DateField('Fecha de proxima visita', null=True,blank=True)
-    pet = models.ForeignKey(HistorialTarjeta)
-
-    def __str__(self):
-        return 'Aplicacion'
