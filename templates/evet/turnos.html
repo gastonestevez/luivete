@@ -1,12 +1,30 @@
 {% extends 'evet/base.html' %}
 {% block content %}
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Turnos</a>
+    </div>
 
+    <form class="form-inline">
+        <div class="form-group">
+            <input type="date" class="form-control mr-sm-2" name="searchdate">
+        </div>
+            <button type="submit" class="btn btn-success">Buscar</button>
+    </form>
+  </div>
+</nav>
 <div class="container">
+    <p>
+    <h3>Hoy</h3>
     <div class="row">
         {% for turno in turnos %}
             {% include 'evet/_calendar_entry.html' %}
         {% endfor %}
     </div>
+    </p>
 </div>
+
+
 
 {% endblock %}

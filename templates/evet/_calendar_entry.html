@@ -1,8 +1,12 @@
- <div class="calendar_entry col-lg-4">
+
+<div class="calendar_entry col-lg-5    ">
             <h2>{{turno.razon}}</h2>
-            <h4>{{turno.fecha}}</h4>
+            <h4>{{turno.fecha.date}}</h4>
             <p>
                 {{turno.nota}}
             </p>
-            <button onclick="window.open='{% url 'modificar' pk=turno.pk %}'" class="btn btn-primary">Modificar</button>
+            <button onClick="window.open('{% url 'modificar' pk=turno.pk %}',width=300,height=300)" class="btn btn-primary">Modificar</button>
+
  </div>
+
+<!-- "window.open=('{% url 'modificar' pk=turno.pk %}','Modificar turno')" -->
