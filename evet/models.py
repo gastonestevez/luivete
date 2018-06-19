@@ -90,7 +90,15 @@ class Mascota(models.Model):
 
 
 class Turno(models.Model):
+    razon_choice = (
+        ('Observacion','Observacion'),
+        ('Vacuna','Vacuna'),
+        ('Peluqueria','Peluqueria'),
+        ('Operacion','Operacion'),
+    )
+
     fecha = models.DateTimeField('Proxima visita')
+    razon = models.CharField('Razon',choices=razon_choice,max_length=30,default='Observacion')
     nota = models.TextField('Nota',blank=True,null=True)
 
 

@@ -1,0 +1,12 @@
+{% extends 'evet/base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        {% for turno in turnos %}
+            {% include 'evet/_calendar_entry.html' %}
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

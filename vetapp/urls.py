@@ -17,10 +17,15 @@ from django.conf.urls import url,include
 from django.conf import settings
 from django.contrib import admin
 from django.views.static import serve
+from django.views.generic import TemplateView
+from evet import views
+
 
 urlpatterns = [
     url(r'^', admin.site.urls),
     url(r'^admin/dynamic_raw_id/', include('dynamic_raw_id.urls')),
+    url(r'^turnos/',views.index,name='index'),
+    url(r'^evet/turno/(?P<pk>[0-9]+)/change/',views.modificarTurno,name='modificar')
 ]
 
 if settings.DEBUG:
