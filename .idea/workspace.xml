@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6a707146-d9ce-446f-917a-9489d3b7cb9e" name="Default" comment="" />
+    <list default="true" id="6a707146-d9ce-446f-917a-9489d3b7cb9e" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/evet/migrations/0043_auto_20180615_1709.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0043_auto_20180615_1709.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -10,7 +12,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.44117647">
+    <splitter split-orientation="horizontal" split-proportion="0.10817308">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
@@ -67,7 +69,11 @@
           </file>
           <file leaf-file-name="0043_auto_20180615_1709.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/evet/migrations/0043_auto_20180615_1709.py">
-              <provider selected="true" editor-type-id="text-editor" />
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="450">
+                  <caret line="33" column="10" selection-start-line="33" selection-start-column="10" selection-end-line="33" selection-end-column="10" />
+                </state>
+              </provider>
             </entry>
           </file>
           <file leaf-file-name="0042_auto_20180615_1704.py" pinned="false" current-in-tab="false">
@@ -174,6 +180,7 @@
         <option value="$PROJECT_DIR$/templates/evet/turnos.html" />
         <option value="$PROJECT_DIR$/evet/views.py" />
         <option value="$PROJECT_DIR$/evet/models.py" />
+        <option value="$PROJECT_DIR$/evet/migrations/0043_auto_20180615_1709.py" />
       </list>
     </option>
   </component>
@@ -643,7 +650,11 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/evet/migrations/0043_auto_20180615_1709.py">
-      <provider selected="true" editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="33" column="10" selection-start-line="33" selection-start-column="10" selection-end-line="33" selection-end-column="10" />
+        </state>
+      </provider>
     </entry>
   </component>
 </project>

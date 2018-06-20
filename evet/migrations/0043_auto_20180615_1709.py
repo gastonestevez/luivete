@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
         migrations.RemoveField(
             model_name='producto',
             name='proxima_aplicacion'
-        )
+        ),
         migrations.AddField(
             model_name='producto',
             name='proxima_aplicacion',
