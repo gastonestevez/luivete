@@ -27,11 +27,13 @@ class HistorialInline(DynamicRawIDMixin,admin.StackedInline):
     #readonly_fields = ('aplicacion_text',)
     fieldsets = (
         ('EOG',{
+            'classes': ('collapse', 'open'),
             'fields': ('fecha_realizada',
                        ('peso_texto','temperatura_texto','frecuencia_respiratoria_texto','linfonodulos_texto'),
                        )
         }),
         ('Sistema Circulatorio', {
+            'classes': ('collapse', 'open'),
             'fields': (('frecuencia_cardiaca',
                        'auscultacion_text',
                        'auscultacion_ritmo_text',
@@ -60,11 +62,13 @@ class NuevoHistorialInline(DynamicRawIDMixin,admin.StackedInline):
 
     fieldsets = (
         ('EOG', {
+            'classes': ('collapse', 'open'),
             'fields': ('fecha_realizada',
                        ('peso_texto', 'temperatura_texto', 'frecuencia_respiratoria_texto', 'linfonodulos_texto'),
                        )
         }),
         ('Sistema Circulatorio', {
+            'classes': ('collapse', 'open'),
             'fields': (('frecuencia_cardiaca',
                         'auscultacion_text',
                         'auscultacion_ritmo_text',
