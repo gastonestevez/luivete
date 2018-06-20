@@ -2,63 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a707146-d9ce-446f-917a-9489d3b7cb9e" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/static/css/bootstrap.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/css/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/evet/_calendar_entry.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/evet/base.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/evet/turnos.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0002_auto_20180510_1650.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0002_auto_20180510_1650.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0003_auto_20180510_2228.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0003_auto_20180510_2228.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0004_auto_20180510_2231.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0004_auto_20180510_2231.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0005_auto_20180511_0005.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0005_auto_20180511_0005.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0006_historialtarjeta_nombre_owner.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0006_historialtarjeta_nombre_owner.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0007_remove_historialtarjeta_nombre_owner.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0007_remove_historialtarjeta_nombre_owner.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0008_auto_20180511_1003.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0008_auto_20180511_1003.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0009_mascota_foto.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0009_mascota_foto.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0010_auto_20180512_2308.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0010_auto_20180512_2308.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0011_auto_20180512_2310.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0011_auto_20180512_2310.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0012_historialtarjeta_nombre_owner.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0012_historialtarjeta_nombre_owner.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0013_remove_historialtarjeta_nombre_owner.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0013_remove_historialtarjeta_nombre_owner.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0014_auto_20180528_2016.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0014_auto_20180528_2016.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0015_auto_20180528_2125.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0015_auto_20180528_2125.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0016_auto_20180530_1736.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0016_auto_20180530_1736.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0017_auto_20180530_1738.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0017_auto_20180530_1738.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0018_auto_20180604_1556.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0018_auto_20180604_1556.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0019_auto_20180604_1558.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0019_auto_20180604_1558.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0020_auto_20180604_1622.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0020_auto_20180604_1622.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0021_auto_20180604_1638.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0021_auto_20180604_1638.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0022_auto_20180605_1920.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0022_auto_20180605_1920.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0023_auto_20180605_1921.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0023_auto_20180605_1921.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0024_auto_20180605_1952.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0024_auto_20180605_1952.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0025_auto_20180605_2022.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0025_auto_20180605_2022.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0026_auto_20180605_2121.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0026_auto_20180605_2121.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0027_auto_20180607_2306.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0027_auto_20180607_2306.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0028_auto_20180607_2311.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0028_auto_20180607_2311.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0029_auto_20180607_2326.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0029_auto_20180607_2326.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0030_auto_20180611_0122.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0030_auto_20180611_0122.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0031_auto_20180611_0123.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0031_auto_20180611_0123.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0032_auto_20180611_1528.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0032_auto_20180611_1528.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0033_auto_20180611_1552.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0033_auto_20180611_1552.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0034_auto_20180611_1615.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0034_auto_20180611_1615.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0035_auto_20180612_2331.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0035_auto_20180612_2331.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0036_auto_20180612_2337.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0036_auto_20180612_2337.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0037_auto_20180612_2342.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0037_auto_20180612_2342.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0038_auto_20180612_2348.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0038_auto_20180612_2348.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0039_auto_20180612_2352.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0039_auto_20180612_2352.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0040_auto_20180613_0023.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0040_auto_20180613_0023.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0041_auto_20180613_0058.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0041_auto_20180613_0058.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0042_auto_20180615_1704.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0042_auto_20180615_1704.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0043_auto_20180615_1709.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0043_auto_20180615_1709.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0044_auto_20180615_1724.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0044_auto_20180615_1724.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/0045_auto_20180615_1802.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/0045_auto_20180615_1802.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/migrations_back/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/migrations/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evet/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/evet/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vetapp/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/vetapp/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vetapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/vetapp/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/evet/turnos.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/evet/turnos.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -108,11 +54,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/evet/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="195">
-                  <caret line="13" column="8" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="8" />
+                <state relative-caret-position="120">
+                  <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
                   <folding>
                     <element signature="e#24#63#0" expanded="true" />
                   </folding>
@@ -132,17 +78,17 @@
           <file leaf-file-name="turnos.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/templates/evet/turnos.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="90">
-                  <caret line="6" column="12" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
+                <state relative-caret-position="270">
+                  <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="_calendar_entry.html" pinned="false" current-in-tab="true">
+          <file leaf-file-name="_calendar_entry.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/templates/evet/_calendar_entry.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="90">
-                  <caret line="6" column="40" selection-start-line="6" selection-start-column="40" selection-end-line="6" selection-end-column="40" />
+                <state relative-caret-position="105">
+                  <caret line="7" column="40" selection-start-line="7" selection-start-column="40" selection-end-line="7" selection-end-column="40" />
                 </state>
               </provider>
             </entry>
@@ -214,11 +160,11 @@
         <option value="$PROJECT_DIR$/vetapp/settings.py" />
         <option value="$PROJECT_DIR$/static/css/style.css" />
         <option value="$PROJECT_DIR$/templates/evet/base.html" />
-        <option value="$PROJECT_DIR$/templates/evet/turnos.html" />
         <option value="$PROJECT_DIR$/evet/models.py" />
-        <option value="$PROJECT_DIR$/evet/views.py" />
         <option value="$PROJECT_DIR$/vetapp/urls.py" />
         <option value="$PROJECT_DIR$/templates/evet/_calendar_entry.html" />
+        <option value="$PROJECT_DIR$/templates/evet/turnos.html" />
+        <option value="$PROJECT_DIR$/evet/views.py" />
       </list>
     </option>
   </component>
@@ -652,20 +598,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/evet/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="53" selection-start-line="7" selection-start-column="53" selection-end-line="7" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/evet/turnos.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="12" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vetapp/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="697">
@@ -683,16 +615,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/evet/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="8" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="8" />
-          <folding>
-            <element signature="e#24#63#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vetapp/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
@@ -703,10 +625,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/evet/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="53" selection-start-line="7" selection-start-column="53" selection-end-line="7" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/templates/evet/_calendar_entry.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="40" selection-start-line="6" selection-start-column="40" selection-end-line="6" selection-end-column="40" />
+        <state relative-caret-position="105">
+          <caret line="7" column="40" selection-start-line="7" selection-start-column="40" selection-end-line="7" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/evet/turnos.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/evet/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#24#63#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
