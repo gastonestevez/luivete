@@ -16,7 +16,7 @@ class Producto(models.Model):
     nombre = models.CharField('Producto',max_length=50)
     referencia = models.CharField('ID de Referencia', max_length=10)
     tipo = models.CharField('Categoria',choices=tipo_choice,max_length=25)
-    proxima_aplicacion = models.IntegerField('Proxima aplicación en dias',blank=True,null=True)
+    proxima_aplicacion = models.IntegerField('Proxima aplicacion en dias',blank=True,null=True)
 
     def __str__(self):
         return ''+str(self.nombre)
