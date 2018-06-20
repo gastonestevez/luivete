@@ -28,7 +28,11 @@ class Migration(migrations.Migration):
             name='birthday_date',
             field=models.DateField(blank=True, default=datetime.datetime(2018, 6, 15, 17, 9, 56, 103302), null=True, verbose_name='Nacimiento'),
         ),
-        migrations.AlterField(
+        migrations.RemoveField(
+            model_name='producto',
+            name='proxima_aplicacion'
+        )
+        migrations.AddField(
             model_name='producto',
             name='proxima_aplicacion',
             field=models.IntegerField(blank=True, null=True, verbose_name='Proxima aplicaci\xf3n en dias'),
