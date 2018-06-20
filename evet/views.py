@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from models import Turno
+from .models import Turno
 import datetime
 from datetime import timedelta
 from django.shortcuts import render
 from django.http import HttpResponse
-from . import models
 
 # Create your views here.
 
