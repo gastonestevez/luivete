@@ -12,7 +12,8 @@ def index(request):
     startdate = datetime.datetime.now().date()
     enddate = startdate + timedelta(days=365)
     turnos = Turno.objects.filter(fecha__range=[startdate, enddate])
-    return render(request,'evet/turnos.html', {'turnos':turnos})
+    return render(request,'evet/turnos.html', {'turnos':turnos,
+                                               'range':range(10),})
 
 def modificarTurno(request):
     pass
