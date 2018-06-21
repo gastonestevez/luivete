@@ -14,6 +14,61 @@
     </form>
   </div>
 </nav>
+
+<p>
+
+    <div class="row">
+
+    <div class="container">
+    <h3>Horarios</h3>
+        <hr>
+        {% load filtro %}
+
+        <div class="calendar_entry col-sm-12 ">
+        {% for value in 7|range:13 %}
+
+            <p class="container">
+                <div class="col-sm-4 container"><h5><kbd>{{value}} hs</kbd></h5>
+                <hr>
+                <a href="http://www.google.com">· Lalo, Razon: Vacunas.</a><br>
+                <a href="http://www.google.com">· Ramon, Razon: Radiografia.</a>
+                </div>
+            </p>
+        {% endfor %}
+   </div>
+
+ <div class="calendar_entry col-sm-4 ">
+        {% for value in 13|range:18 %}
+
+            <p class="container">
+                <div class="col-sm-12 container"><h5><kbd>{{value}} hs</kbd></h5>
+                <hr>
+                <a href="http://www.google.com">· Lalo, Razon: Vacunas.</a><br>
+                <a href="http://www.google.com">· Ramon, Razon: Radiografia.</a>
+                </div>
+            </p>
+        {% endfor %}
+           </div>
+
+        <div class="calendar_entry col-sm-4 ">
+        {% for value in 18|range:22 %}
+
+            <p class="container">
+                <div class="col-sm-12 container"><h5><kbd>{{value}} hs</kbd></h5>
+                <hr>
+                <a href="http://www.google.com">· Lalo, Razon: Vacunas.</a><br>
+                <a href="http://www.google.com">· Ramon, Razon: Radiografia.</a>
+                </div>
+            </p>
+
+        {% endfor %}
+            </div>
+
+    </div>
+    </div>
+ </p>
+{% endblock %}
+<!--
 <div class="container">
     <p>
 
@@ -24,7 +79,7 @@
     </div>
     </p>
 </div>
+-->
 
 
 
-{% endblock %}
