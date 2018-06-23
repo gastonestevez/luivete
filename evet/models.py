@@ -4,8 +4,11 @@ from __future__ import unicode_literals
 from django.db import models
 from sorl.thumbnail import get_thumbnail
 from datetime import datetime
-
+from django.utils import timezone
 # Create your models here.
+
+
+
 
 class Producto(models.Model):
     tipo_choice = (
@@ -14,7 +17,7 @@ class Producto(models.Model):
         ('Otro Producto','Otro Producto')
     )
     nombre = models.CharField('Producto',max_length=50)
-    referencia = models.CharField('ID de Referencia', max_length=10)
+    referencia = models.CharField('ID de Referencia', max_length=10,blank=True,null=True)
     tipo = models.CharField('Categoria',choices=tipo_choice,max_length=25)
     proxima_aplicacion = models.IntegerField('Proxima aplicacion en dias',blank=True,null=True)
 
@@ -25,11 +28,11 @@ class Producto(models.Model):
 class Cliente(models.Model):
     nombre_texto = models.CharField('Nombre y Apellido',max_length=200)
     direccion_texto = models.CharField('Domicilio', max_length=200)
-    codigopostal_texto = models.IntegerField('Codigo Postal')
-    tel_texto = models.CharField('Telefono',max_length=40)
-    celular_texto = models.CharField('Celular',max_length=40)
-    mail_texto = models.CharField('Email',max_length=200)
-    inscripcion_date = models.DateField('Fecha de inscripcion')
+    codigopostal_texto = models.IntegerField('Codigo Postal',blank=True,null=True)
+    tel_texto = models.CharField('Telefono',max_length=40,blank=True,null=True)
+    celular_texto = models.CharField('Celular',max_length=40,blank=True,null=True)
+    mail_texto = models.CharField('Email',max_length=200,blank=True,null=True)
+    inscripcion_date = models.DateField('Fecha de inscripcion',default=timezone.now)
 
     def __str__(self):
         return self.nombre_texto
@@ -54,15 +57,15 @@ class Mascota(models.Model):
         ('Medicado','Medicado')
     )
 
-    owner = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    nombre_texto = models.CharField('Nombre',max_length=200)
+    owner = models.ForeignKey(Cliente, on_delete=models.CASCADE, verbose_name='Responsable')
+    nombre_texto = models.CharField('Mascota',max_length=200)
     chip = models.CharField('Chip', max_length=200,blank=True,null=True)
     esterilizado = models.BooleanField('Esterilizado?',default=False)
     raza_texto = models.CharField('Raza',max_length=30, default='Sin completar')
     color_texto = models.CharField('Color',max_length=30,default= 'Sin completar')
     sexo_texto = models.CharField('Sexo',choices=sexo_choice,max_length=15, default='Macho')
     #edad_texto = models.IntegerField('Edad', default='0')
-    birthday_date = models.DateField('Nacimiento', default=datetime.now(), blank=True, null=True)
+    birthday_date = models.DateField('Nacimiento', default=timezone.now, blank=True, null=True)
     deceso_date = models.DateField('Deceso',blank=True, null=True)
     causa_deceso = models.CharField('Causa del deceso',blank=True,null=True,max_length=50)
     ambiente = models.CharField('Ambiente', choices=ambiente_choice,default='Departamento',max_length=30)
@@ -94,11 +97,12 @@ class Turno(models.Model):
         ('Observacion','Observacion'),
         ('Vacuna','Vacuna'),
         ('Peluqueria','Peluqueria'),
-        ('Operacion','Operacion'),
+        ('Cirugía','Cirugía'),
     )
 
     fecha = models.DateTimeField('Proxima visita')
     razon = models.CharField('Razon',choices=razon_choice,max_length=30,default='Observacion')
+    se_atiende = models.ForeignKey(Mascota,on_delete=models.CASCADE,verbose_name='Mascota')
     nota = models.TextField('Nota',blank=True,null=True)
 
 
@@ -131,20 +135,21 @@ class HistorialTarjeta(models.Model):
     )
 
     nombre_mascota = models.ForeignKey(Mascota, on_delete=models.CASCADE)
-    fecha_realizada = models.DateTimeField('Fecha y Hora', default=datetime.now())
-    peso_texto = models.FloatField('Peso')
-    temperatura_texto = models.FloatField('Temperatura')
-    frecuencia_respiratoria_texto = models.FloatField('Frecuencia Respiratoria')
-    linfonodulos_texto = models.CharField('LFN',max_length=50)
+    fecha_realizada = models.DateTimeField('Fecha y Hora', default=timezone.now)
+    peso_texto = models.FloatField('Peso',blank=True,null=True)
+    temperatura_texto = models.FloatField('Temperatura',blank=True,null=True)
+    frecuencia_respiratoria_texto = models.FloatField('Frecuencia Respiratoria',blank=True,null=True)
+    linfonodulos_texto = models.CharField('LFN',max_length=50,blank=True,null=True)
     #Sistema Circulatorio
-    frecuencia_cardiaca = models.FloatField('Frecuencia Cardiaca')
-    auscultacion_text = models.CharField('Auscultacion',choices=auscultacion_choice,max_length=20)
-    auscultacion_ritmo_text = models.CharField('Auscultacion Ritmo',choices=auscultacion_ritmo_choice,max_length=20)
-    auscultacion_sonidos_text = models.CharField('Auscultacion Sonidos',choices=auscultacion_sonidos_choice,max_length=20)
-    soplo_text = models.CharField('Dimension',choices=soplo_choice,max_length=20)
+    frecuencia_cardiaca = models.IntegerField('Frecuencia Cardiaca',blank=True,null=True)
+    auscultacion_text = models.CharField('Auscultacion',choices=auscultacion_choice,max_length=20,blank=True,null=True)
+    auscultacion_ritmo_text = models.CharField('Auscultacion Ritmo',choices=auscultacion_ritmo_choice,max_length=20,blank=True,null=True)
+    auscultacion_sonidos_text = models.CharField('Auscultacion Sonidos',choices=auscultacion_sonidos_choice,max_length=20,blank=True,null=True)
+    soplo_text = models.CharField('Dimension',choices=soplo_choice,max_length=20,blank=True,null=True)
     enObservasion_bool = models.BooleanField('En Observación')
     ficha = models.TextField('Ficha')
-    aplicacion_text = models.ManyToManyField(Producto, verbose_name='Aplicaciones', blank=True,null=True)
+    atendido_por = models.CharField('idvet',max_length=30,blank=True,null=True)
+    aplicacion_text = models.ManyToManyField(Producto, verbose_name='Aplicaciones', blank=True)
     turno = models.ManyToManyField(Turno,verbose_name='Turnos')
 
     def __str__(self):
@@ -152,7 +157,7 @@ class HistorialTarjeta(models.Model):
 
     def save(self, *args, **kwargs):
         turnito = Turno(
-            fecha=datetime.now(),
+            fecha=timezone.now,
             nota='ok, agregamos turno a: ' + str(self.nombre_mascota)
         )
         turnito.save()
@@ -161,3 +166,41 @@ class HistorialTarjeta(models.Model):
     class Meta:
         verbose_name = 'Visita'
         verbose_name_plural = 'Visitas'
+
+
+class EstudiosComplementarios(models.Model):
+
+    razon_choice = (
+        ('Radiografia','Radiografia'),
+        ('Ecografia','Ecografia'),
+        ('Electrocardiograma','Electrocardiograma'),
+        ('Complementario','Complementario')
+    )
+
+    fecha = models.DateTimeField('Fecha y hora', default=timezone.now)
+    razon = models.CharField('Razon',choices=razon_choice,max_length=30,default='Complementario')
+    mascota = models.ForeignKey(Mascota, verbose_name="Mascota", on_delete=models.CASCADE)
+    radiografia = models.ImageField(verbose_name="Imagen",upload_to="images", blank=True, null=True)
+    pdf = models.FileField(verbose_name="Archivo adjunto",upload_to="pdf", blank=True, null=True)
+    nota = models.TextField('Informe', blank=True, null=True)
+
+    def image_tag(self):
+        imagen = get_thumbnail(self.radiografia, "50x50", crop='center', quality=95)
+        if imagen is not None:
+            imagen = imagen.url
+            return u'<img src="%s" />' % (imagen)
+        else:
+            notexistpath = 'images/notexist.png'
+            notexistthumb = get_thumbnail(notexistpath,"50x50", crop='center', quality=95)
+            notexistthumb = notexistthumb.url
+            return u'<img src="%s" />' % (notexistthumb)
+
+    image_tag.short_description = 'Imagen cargada'
+    image_tag.allow_tags = True
+
+    def __str__(self):
+        return str(self.fecha.strftime("%d-%m-%Y"))
+
+    class Meta:
+        verbose_name = 'Estudios Complementarios'
+        verbose_name_plural = 'Estudios Complementarios'

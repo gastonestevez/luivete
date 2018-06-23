@@ -7,18 +7,45 @@ from .models import Mascota
 from .models import HistorialTarjeta
 from .models import Producto
 from .models import Turno
+from .models import EstudiosComplementarios
 from django.http import HttpResponse
 from django.shortcuts import render
 from datetime import datetime, date
 import csv
 from io import BytesIO
-from xhtml2pdf import pisa
-from django.template.loader import render_to_string
 from tabbed_admin import TabbedModelAdmin
 from django.template.loader import get_template
 from dynamic_raw_id.admin import DynamicRawIDMixin
 
-#Clases
+
+class NuevoEstudioInline(admin.StackedInline):
+    model = EstudiosComplementarios
+    extra = 0
+    readonly_fields = ('image_tag',)
+    show_change_link = True
+    fields = ['fecha','razon','radiografia','image_tag','pdf','nota']
+
+    def get_queryset(self, request):
+        # get the existing query set, then empty it.
+        qs = super(NuevoEstudioInline, self).get_queryset(request)
+        return qs.none()
+
+
+class EstudiosInline(admin.StackedInline):
+    model = EstudiosComplementarios
+    readonly_fields = ('image_tag',)
+    fields = ['fecha','razon','radiografia','image_tag','pdf','nota']
+    show_change_link = True
+    extra = 0
+    ordering = ('-fecha',)
+    classes = ['collapse']
+    verbose_name_plural = "Radiografias"
+    verbose_name = "Radiografia"
+
+    def get_queryset(self, request):
+        # get the existing query set, then empty it.
+        radios = EstudiosComplementarios.objects.filter(razon='Radiografia').order_by('-fecha')
+        return radios
 
 class HistorialInline(DynamicRawIDMixin,admin.StackedInline):
     save_on_top = True
@@ -42,18 +69,20 @@ class HistorialInline(DynamicRawIDMixin,admin.StackedInline):
                        'enObservasion_bool',),)
         }),
         ('Ficha', {
-            'fields': ('ficha','aplicacion_text',)
+            'fields': ('ficha','atendido_por','aplicacion_text',)
         }),
     )
     extra = 0
     ordering = ('-fecha_realizada',)
     classes = ['collapse']
+    verbose_name = "Visita anterior"
+    verbose_name_plural = "Visitas anteriores"
 
 class NuevoHistorialInline(DynamicRawIDMixin,admin.StackedInline):
     save_on_top = True
     model = HistorialTarjeta
     extra = 0
-    dynamic_raw_id_fields = ('aplicacion_text',)
+    dynamic_raw_id_fields = ('aplicacion_text','estudios_complementarios')
 
     def get_queryset(self, request):
         # get the existing query set, then empty it.
@@ -77,7 +106,7 @@ class NuevoHistorialInline(DynamicRawIDMixin,admin.StackedInline):
                         'enObservasion_bool',),)
         }),
         ('Ficha', {
-            'fields': ('ficha','aplicacion_text')
+            'fields': ('ficha','atendido_por','aplicacion_text',)
         })
     )
 
@@ -118,6 +147,7 @@ class ClienteAdmin(TabbedModelAdmin):
         ('Mascotas',tab_mascota)
     ]
 
+
 class HistorialAdmin(admin.ModelAdmin):
     list_display = ('nombre_mascota','ficha','fecha_realizada',)
     search_fields = ('nombre_mascota__nombre_texto','nombre_mascota__owner__nombre_texto')
@@ -137,17 +167,19 @@ class HistorialAdmin(admin.ModelAdmin):
                 'enObservasion_bool',)
         }),
         ('Ficha', {
-            'fields': ('ficha','aplicacion_text'),
+            'fields': ('ficha','atendido_por','aplicacion_text',),
         })
     )
 
-class MascotaAdmin(TabbedModelAdmin):
-    list_display = ('nombre_texto','owner','image_tag','id')
-    search_fields = ('nombre_texto','owner__nombre_texto','id')
+
+class MascotaAdmin(DynamicRawIDMixin,TabbedModelAdmin):
+    list_display = ('owner','nombre_texto','image_tag','id')
+    search_fields = ('owner__nombre_texto','owner__tel_texto','owner__celular_texto','id')
     save_on_top = True
     readonly_fields = ('get_edad','image_tag',)
     raw_id_fields = ('owner',)
     inline = [HistorialInline]
+
     tab_mascota = (
         ('General',{
             'fields':('owner',
@@ -160,14 +192,23 @@ class MascotaAdmin(TabbedModelAdmin):
                       )
         }),
     )
+
     tab_historial = (
         NuevoHistorialInline,
         HistorialInline,
     )
+
+    tab_estudios_complementarios = (
+        NuevoEstudioInline,
+        EstudiosInline,
+    )
+
     tabs = [
         ('Informacion',tab_mascota),
-        ('Historial Clinico',tab_historial)
+        ('Historial Clinico',tab_historial),
+        ('Estudios Complementarios',tab_estudios_complementarios)
     ]
+
     def get_edad(self,obj): #Esta para el ogt esto TODO
         if(obj.birthday_date is not None):
             hoy = date.today()
@@ -246,14 +287,36 @@ class ProductoAdmin(admin.ModelAdmin):
         }),
     )
 
-class TurnoAdmin(admin.ModelAdmin):
+class TurnoAdmin(DynamicRawIDMixin,admin.ModelAdmin):
     extra = 0
-    list_display = ('fecha',)
+    dynamic_raw_id_fields = ('se_atiende',)
+    list_display = ('get_dia','get_hora','se_atiende','razon','nota')
+    list_filter = ('fecha','razon',)
+    ordering = ('fecha',)
 
+    def get_dia(self,obj):
+        return obj.fecha.date()
+    get_dia.short_description = 'Fecha'
+
+    def get_hora(self,obj):
+        return obj.fecha.time()
+    get_hora.short_description = 'Hora'
+
+
+
+class EstudiosComplementariosAdmin(admin.ModelAdmin):
+    list_display = ('fecha','nota')
+    ordering = ('fecha',)
+    fieldsets = (
+        ('Imagenes',{
+            'fields':(('fecha','mascota','radiografia','pdf','nota'),)
+        }),
+    )
 
 # Register your models here.
 admin.site.register(Cliente, ClienteAdmin, inlines=[MascotaListadoInline])
-admin.site.register(Mascota, MascotaAdmin, inlines=[NuevoHistorialInline, HistorialInline])
+admin.site.register(Mascota, MascotaAdmin, inlines=[NuevoHistorialInline, HistorialInline,EstudiosInline,NuevoEstudioInline])
 admin.site.register(HistorialTarjeta, HistorialAdmin,)
 admin.site.register(Producto,ProductoAdmin)
 admin.site.register(Turno,TurnoAdmin)
+admin.site.register(EstudiosComplementarios,EstudiosComplementariosAdmin)
