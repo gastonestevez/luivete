@@ -5,6 +5,10 @@ from django.db import models
 from sorl.thumbnail import get_thumbnail
 from datetime import datetime
 from django.utils import timezone
+from PIL import Image
+from io import BytesIO
+from django.core.files.uploadedfile import InMemoryUploadedFile
+
 # Create your models here.
 
 
@@ -75,18 +79,27 @@ class Mascota(models.Model):
     foto = models.ImageField(upload_to="images",blank=True, null=True)
 
     def image_tag(self):
-        imagen = get_thumbnail(self.foto, "50x50", crop='center', quality=95)
+        imagen = get_thumbnail(self.foto, "80x80", crop='center', quality=95)
         if imagen is not None:
             imagen = imagen.url
-            return u'<img src="%s" />' % (imagen)
+            return u'<a href="%s" target="_blank"><img src="%s" /></a>' % (self.foto.url,imagen)
         else:
             notexistpath = 'images/notexist.png'
-            notexistthumb = get_thumbnail(notexistpath,"50x50", crop='center', quality=95)
+            notexistthumb = get_thumbnail(notexistpath,"80x80", crop='center', quality=95)
             notexistthumb = notexistthumb.url
             return u'<img src="%s" />' % (notexistthumb)
 
     image_tag.short_description = 'Foto'
     image_tag.allow_tags = True
+
+    def save(self,*args,**kwargs):
+        super(Mascota, self).save(*args, **kwargs)
+
+        if self.id is not None:
+            if self.foto is not None:
+                image = Image.open(self.foto.path)
+                image = image.resize((640,360),Image.ANTIALIAS)
+                image.save(self.foto.path)
 
     def __str__(self):
         return self.nombre_texto
@@ -152,16 +165,20 @@ class HistorialTarjeta(models.Model):
     aplicacion_text = models.ManyToManyField(Producto, verbose_name='Aplicaciones', blank=True)
     turno = models.ManyToManyField(Turno,verbose_name='Turnos')
 
+    def get_fecha(self):
+        return self.fecha_realizada.strftime("%d/%m/%Y  %H:%M")
+    get_fecha.short_description = "Fecha"
+
     def __str__(self):
         return str(self.fecha_realizada.strftime("%d-%m-%Y"))
 
-    def save(self, *args, **kwargs):
-        turnito = Turno(
-            fecha=timezone.now,
-            nota='ok, agregamos turno a: ' + str(self.nombre_mascota)
-        )
-        turnito.save()
-        super(HistorialTarjeta, self).save(*args, **kwargs)
+    #def save(self, *args, **kwargs):
+       # turnito = Turno(
+        #    fecha=timezone.now,
+         #   nota='ok, agregamos turno a: ' + str(self.nombre_mascota)
+        #)
+        #turnito.save()
+        #super(HistorialTarjeta, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Visita'
@@ -174,7 +191,7 @@ class EstudiosComplementarios(models.Model):
         ('Radiografia','Radiografia'),
         ('Ecografia','Ecografia'),
         ('Electrocardiograma','Electrocardiograma'),
-        ('Complementario','Complementario')
+        ('Estudios de laboratorio','Estudios de laboratorio')
     )
 
     fecha = models.DateTimeField('Fecha y hora', default=timezone.now)
@@ -185,18 +202,29 @@ class EstudiosComplementarios(models.Model):
     nota = models.TextField('Informe', blank=True, null=True)
 
     def image_tag(self):
-        imagen = get_thumbnail(self.radiografia, "50x50", crop='center', quality=95)
+        imagen = get_thumbnail(self.radiografia, "256x144", crop='center', quality=75)
+        imagenEntera = self.radiografia.url
         if imagen is not None:
             imagen = imagen.url
-            return u'<img src="%s" />' % (imagen)
+            return u'<a href="%s" target="_blank"> <img src="%s"/><a/>' % (imagenEntera,imagen)
         else:
             notexistpath = 'images/notexist.png'
-            notexistthumb = get_thumbnail(notexistpath,"50x50", crop='center', quality=95)
+            notexistthumb = get_thumbnail(notexistpath,"50x50", crop='center', quality=50)
             notexistthumb = notexistthumb.url
             return u'<img src="%s" />' % (notexistthumb)
 
     image_tag.short_description = 'Imagen cargada'
     image_tag.allow_tags = True
+
+    def save(self,*args,**kwargs):
+        super(EstudiosComplementarios, self).save(*args, **kwargs)
+
+        if self.id is not None:
+            if self.radiografia is not None:
+                image = Image.open(self.radiografia.path)
+                image = image.resize((1280,720),Image.ANTIALIAS)
+                image.save(self.radiografia.path)
+
 
     def __str__(self):
         return str(self.fecha.strftime("%d-%m-%Y"))

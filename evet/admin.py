@@ -31,7 +31,7 @@ class NuevoEstudioInline(admin.StackedInline):
         return qs.none()
 
 
-class EstudiosInline(admin.StackedInline):
+class EstudiosRadiografiaInline(admin.StackedInline):
     model = EstudiosComplementarios
     readonly_fields = ('image_tag',)
     fields = ['fecha','razon','radiografia','image_tag','pdf','nota']
@@ -46,6 +46,58 @@ class EstudiosInline(admin.StackedInline):
         # get the existing query set, then empty it.
         radios = EstudiosComplementarios.objects.filter(razon='Radiografia').order_by('-fecha')
         return radios
+
+
+class EstudiosEcografiasInline(admin.StackedInline):
+    model = EstudiosComplementarios
+    readonly_fields = ('image_tag',)
+    fields = ['fecha','razon','radiografia','image_tag','pdf','nota']
+    show_change_link = True
+    extra = 0
+    ordering = ('-fecha',)
+    classes = ['collapse']
+    verbose_name_plural = "Ecografias"
+    verbose_name = "Ecografia"
+
+    def get_queryset(self, request):
+        # get the existing query set, then empty it.
+        radios = EstudiosComplementarios.objects.filter(razon='Ecografia').order_by('-fecha')
+        return radios
+
+
+class EstudiosElectroInline(admin.StackedInline):
+    model = EstudiosComplementarios
+    readonly_fields = ('image_tag',)
+    fields = ['fecha','razon','radiografia','image_tag','pdf','nota']
+    show_change_link = True
+    extra = 0
+    ordering = ('-fecha',)
+    classes = ['collapse']
+    verbose_name_plural = "Electrocardiogramas"
+    verbose_name = "Electrocardiograma"
+
+    def get_queryset(self, request):
+        # get the existing query set, then empty it.
+        radios = EstudiosComplementarios.objects.filter(razon='Electrocardiograma').order_by('-fecha')
+        return radios
+
+
+class EstudiosLaboratorioInline(admin.StackedInline):
+    model = EstudiosComplementarios
+    readonly_fields = ('image_tag',)
+    fields = ['fecha','razon','radiografia','image_tag','pdf','nota']
+    show_change_link = True
+    extra = 0
+    ordering = ('-fecha',)
+    classes = ['collapse']
+    verbose_name_plural = "Laboratorio"
+    verbose_name = "Laboratorio"
+
+    def get_queryset(self, request):
+        # get the existing query set, then empty it.
+        radios = EstudiosComplementarios.objects.filter(razon='Estudios de laboratorio').order_by('-fecha')
+        return radios
+
 
 class HistorialInline(DynamicRawIDMixin,admin.StackedInline):
     save_on_top = True
@@ -149,7 +201,9 @@ class ClienteAdmin(TabbedModelAdmin):
 
 
 class HistorialAdmin(admin.ModelAdmin):
-    list_display = ('nombre_mascota','ficha','fecha_realizada',)
+
+    list_display = ('nombre_mascota','get_fecha','ficha',)
+    ordering = ('-fecha_realizada',)
     search_fields = ('nombre_mascota__nombre_texto','nombre_mascota__owner__nombre_texto')
     fieldsets = (
         ('General', {
@@ -200,7 +254,10 @@ class MascotaAdmin(DynamicRawIDMixin,TabbedModelAdmin):
 
     tab_estudios_complementarios = (
         NuevoEstudioInline,
-        EstudiosInline,
+        EstudiosRadiografiaInline,
+        EstudiosEcografiasInline,
+        EstudiosElectroInline,
+        EstudiosLaboratorioInline,
     )
 
     tabs = [
@@ -313,9 +370,10 @@ class EstudiosComplementariosAdmin(admin.ModelAdmin):
         }),
     )
 
+
 # Register your models here.
 admin.site.register(Cliente, ClienteAdmin, inlines=[MascotaListadoInline])
-admin.site.register(Mascota, MascotaAdmin, inlines=[NuevoHistorialInline, HistorialInline,EstudiosInline,NuevoEstudioInline])
+admin.site.register(Mascota, MascotaAdmin, inlines=[NuevoHistorialInline, HistorialInline,EstudiosElectroInline,EstudiosEcografiasInline,EstudiosLaboratorioInline,EstudiosRadiografiaInline,NuevoEstudioInline])
 admin.site.register(HistorialTarjeta, HistorialAdmin,)
 admin.site.register(Producto,ProductoAdmin)
 admin.site.register(Turno,TurnoAdmin)
