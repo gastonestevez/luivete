@@ -369,6 +369,7 @@ class EstudiosComplementariosAdmin(admin.ModelAdmin):
             'fields':(('fecha','mascota','radiografia','pdf','nota'),)
         }),
     )
+    list_filter = ('fecha','razon')
 
 
 # Register your models here.

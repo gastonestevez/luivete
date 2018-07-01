@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a707146-d9ce-446f-917a-9489d3b7cb9e" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/evet/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/evet/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/evet/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vetapp/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/vetapp/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/images/34730563_1778869112198162_7735078818393620480_n.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/media/images/34730563_1778869112198162_7735078818393620480_n.jpg" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -15,14 +16,14 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.33790737">
+    <splitter split-orientation="horizontal" split-proportion="0.43053174">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="admin.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/evet/admin.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="729">
-                  <caret line="53" column="29" selection-start-line="53" selection-start-column="29" selection-end-line="53" selection-end-column="29" />
+                <state relative-caret-position="521">
+                  <caret line="371" column="27" selection-start-line="371" selection-start-column="27" selection-end-line="371" selection-end-column="27" />
                   <folding>
                     <element signature="e#24#63#0" expanded="true" />
                   </folding>
@@ -46,7 +47,7 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/vetapp/settings.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="390">
@@ -55,23 +56,14 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/evet/models.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-760">
-                  <caret line="84" column="85" selection-start-line="84" selection-start-column="85" selection-end-line="84" selection-end-column="85" />
+                <state relative-caret-position="162">
+                  <caret line="187" column="14" selection-start-line="187" selection-start-column="6" selection-end-line="187" selection-end-column="14" />
                   <folding>
                     <element signature="e#24#63#0" expanded="true" />
                   </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="_calendar_entry.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/templates/evet/_calendar_entry.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="105">
-                  <caret line="7" column="40" selection-start-line="7" selection-start-column="40" selection-end-line="7" selection-end-column="40" />
                 </state>
               </provider>
             </entry>
@@ -102,6 +94,8 @@
       <find>d</find>
       <find>media</find>
       <find>datetime</find>
+      <find>filter</find>
+      <find>estudios</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -142,9 +136,9 @@
         <option value="$PROJECT_DIR$/evet/migrations/0043_auto_20180615_1709.py" />
         <option value="$PROJECT_DIR$/static/css/style.css" />
         <option value="$PROJECT_DIR$/templates/evet/turnos.html" />
-        <option value="$PROJECT_DIR$/evet/admin.py" />
-        <option value="$PROJECT_DIR$/evet/models.py" />
         <option value="$PROJECT_DIR$/vetapp/settings.py" />
+        <option value="$PROJECT_DIR$/evet/models.py" />
+        <option value="$PROJECT_DIR$/evet/admin.py" />
       </list>
     </option>
   </component>
@@ -192,6 +186,12 @@
               <item name="vetapp" type="b2602c69:ProjectViewProjectNode" />
               <item name="vetapp" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vetapp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vetapp" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="vetapp" type="b2602c69:ProjectViewProjectNode" />
@@ -283,6 +283,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="878" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19027779" />
       <window_info anchor="bottom" id="TODO" order="13" />
@@ -315,7 +316,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/evet/migrations/0008_auto_20180511_1003.py" />
     <entry file="file://$PROJECT_DIR$/evet/migrations/0004_auto_20180510_2231.py" />
     <entry file="file://$PROJECT_DIR$/evet/migrations/0006_historialtarjeta_nombre_owner.py" />
     <entry file="file://$PROJECT_DIR$/evet/migrations/0014_auto_20180528_2016.py" />
@@ -353,13 +353,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/admin/base_site.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="33" selection-start-line="3" selection-start-column="33" selection-end-line="3" selection-end-column="33" />
         </state>
       </provider>
     </entry>
@@ -564,33 +557,43 @@
     <entry file="file://$PROJECT_DIR$/media/images/IMG_3024_ZBccUoq.JPG">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/evet/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="729">
-          <caret line="53" column="29" selection-start-line="53" selection-start-column="29" selection-end-line="53" selection-end-column="29" />
-          <folding>
-            <element signature="e#24#63#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/media/images/perro.jpg">
       <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/evet/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-760">
-          <caret line="84" column="85" selection-start-line="84" selection-start-column="85" selection-end-line="84" selection-end-column="85" />
-          <folding>
-            <element signature="e#24#63#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/vetapp/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
           <caret line="26" column="60" selection-start-line="26" selection-start-column="60" selection-end-line="26" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/admin/base_site.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="33" selection-start-line="3" selection-start-column="33" selection-end-line="3" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/admin/base.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/evet/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="187" column="14" selection-start-line="187" selection-start-column="6" selection-end-line="187" selection-end-column="14" />
+          <folding>
+            <element signature="e#24#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/evet/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="521">
+          <caret line="371" column="27" selection-start-line="371" selection-start-column="27" selection-end-line="371" selection-end-column="27" />
+          <folding>
+            <element signature="e#24#63#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

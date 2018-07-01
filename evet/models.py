@@ -96,7 +96,7 @@ class Mascota(models.Model):
         super(Mascota, self).save(*args, **kwargs)
 
         if self.id is not None:
-            if self.foto is not None:
+            if self.foto:
                 image = Image.open(self.foto.path)
                 image = image.resize((640,360),Image.ANTIALIAS)
                 image.save(self.foto.path)
@@ -197,7 +197,7 @@ class EstudiosComplementarios(models.Model):
     fecha = models.DateTimeField('Fecha y hora', default=timezone.now)
     razon = models.CharField('Razon',choices=razon_choice,max_length=30,default='Complementario')
     mascota = models.ForeignKey(Mascota, verbose_name="Mascota", on_delete=models.CASCADE)
-    radiografia = models.ImageField(verbose_name="Imagen",upload_to="images", blank=True, null=True)
+    radiografia = models.ImageField(verbose_name="Imagen",upload_to="images", blank=True)
     pdf = models.FileField(verbose_name="Archivo adjunto",upload_to="pdf", blank=True, null=True)
     nota = models.TextField('Informe', blank=True, null=True)
 
@@ -220,10 +220,11 @@ class EstudiosComplementarios(models.Model):
         super(EstudiosComplementarios, self).save(*args, **kwargs)
 
         if self.id is not None:
-            if self.radiografia is not None:
+            if self.radiografia:
                 image = Image.open(self.radiografia.path)
                 image = image.resize((1280,720),Image.ANTIALIAS)
                 image.save(self.radiografia.path)
+
 
 
     def __str__(self):
