@@ -32,12 +32,23 @@ class FiltrarPorFechaDeHoy(admin.SimpleListFilter):
             days_ahead += 7
         return d + timedelta(days_ahead)
 
+    def next_month(self,d,mon):
+        dn = date(d.year, d.month+mon, 1)
+        if dn.month > 12:
+            dn.year += 1
+            dn.month -= 12
+        return dn
+
     def lookups(self, request, model_admin):
         return (
             ('man', ('Mañana')),
             ('tarde', _('Tarde')),
             ('noche', _('Noche')),
             ('proxsem',_('Semana Siguiente')),
+            ('semant',_('Semana Anterior')),
+            ('proximomes',_('Mes Siguiente')),
+            ('mesanterior',_('Mes Anterior')),
+            ('todoslosdias',_('Todos los dias')),
         )
 
     def queryset(self, request, queryset):
@@ -57,8 +68,11 @@ class FiltrarPorFechaDeHoy(admin.SimpleListFilter):
         if self.value() == 'proxsem':
             proxsemana = self.next_weekday(datetime.now(),0)
             proxsemana = self.next_weekday(proxsemana,0)
-            return queryset.filter(fecha__gte=self.next_weekday(datetime.now(),0),
+            return queryset.filter(fecha__gte=self.next_weekday(datetime.now(), 0),
                                    fecha__lte=proxsemana)
+        if self.value() == 'proximomes':
+            return queryset.filter(fecha__gte=self.next_month(datetime.now(), 1),
+                                   fecha__lte=self.next_month(datetime.now(), 2))
 
         if self.value() is None:
             return queryset.filter(fecha__gte=date(datetime.now().year, datetime.now().month, datetime.now().day),
