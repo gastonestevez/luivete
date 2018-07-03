@@ -16,8 +16,57 @@ from io import BytesIO
 from tabbed_admin import TabbedModelAdmin
 from django.template.loader import get_template
 from dynamic_raw_id.admin import DynamicRawIDMixin
+from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
+from datetime import timedelta
 
 
+#Filtros
+class FiltrarPorFechaDeHoy(admin.SimpleListFilter):
+    title = _('Hoy')
+    parameter_name = 'fecha'
+
+    def next_weekday(self,d, weekday):
+        days_ahead = weekday - d.weekday()
+        if days_ahead <= 0:  # Target day already happened this week
+            days_ahead += 7
+        return d + timedelta(days_ahead)
+
+    def lookups(self, request, model_admin):
+        return (
+            ('man', ('Mañana')),
+            ('tarde', _('Tarde')),
+            ('noche', _('Noche')),
+            ('proxsem',_('Semana Siguiente')),
+        )
+
+    def queryset(self, request, queryset):
+        if self.value() == 'man':
+            return queryset.filter(fecha__gte=date(datetime.now().year,datetime.now().month,datetime.now().day),
+                                   fecha__lte=datetime(datetime.now().year,datetime.now().month,datetime.now().day,12,59))
+        if self.value() == 'tarde':
+            return queryset.filter(fecha__gte=datetime(datetime.now().year, datetime.now().month, datetime.now().day,
+                                                       13, 00),
+                                   fecha__lte=datetime(datetime.now().year, datetime.now().month, datetime.now().day,
+                                                       17, 59))
+        if self.value() == 'noche':
+            return queryset.filter(fecha__gte=datetime(datetime.now().year, datetime.now().month, datetime.now().day,
+                                                       18, 00),
+                                   fecha__lte=datetime(datetime.now().year, datetime.now().month, datetime.now().day,
+                                                       23, 59))
+        if self.value() == 'proxsem':
+            proxsemana = self.next_weekday(datetime.now(),0)
+            proxsemana = self.next_weekday(proxsemana,0)
+            return queryset.filter(fecha__gte=self.next_weekday(datetime.now(),0),
+                                   fecha__lte=proxsemana)
+
+        if self.value() is None:
+            return queryset.filter(fecha__gte=date(datetime.now().year, datetime.now().month, datetime.now().day),
+                                   fecha__lte=datetime(datetime.now().year, datetime.now().month, datetime.now().day,
+                                                       23, 59))
+
+
+#Clases
 class NuevoEstudioInline(admin.StackedInline):
     model = EstudiosComplementarios
     extra = 0
@@ -348,7 +397,8 @@ class TurnoAdmin(DynamicRawIDMixin,admin.ModelAdmin):
     extra = 0
     dynamic_raw_id_fields = ('se_atiende',)
     list_display = ('get_dia','get_hora','se_atiende','razon','nota')
-    list_filter = ('fecha','razon',)
+    #list_filter = ('fecha','razon',)
+    list_filter = (FiltrarPorFechaDeHoy,)
     ordering = ('fecha',)
 
     def get_dia(self,obj):
