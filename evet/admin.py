@@ -17,13 +17,12 @@ from tabbed_admin import TabbedModelAdmin
 from django.template.loader import get_template
 from dynamic_raw_id.admin import DynamicRawIDMixin
 from django.utils.translation import gettext_lazy as _
-from django.utils import timezone
 from datetime import timedelta
 
 
 #Filtros
 class FiltrarPorFechaDeHoy(admin.SimpleListFilter):
-    title = _('Hoy')
+    title = _('Fechas')
     parameter_name = 'fecha'
 
     def next_weekday(self,d, weekday):
@@ -39,11 +38,21 @@ class FiltrarPorFechaDeHoy(admin.SimpleListFilter):
             dn.month -= 12
         return dn
 
+    def prev_month(self,d,mon):
+        dn = date(d.year, d.month-mon,1)
+        if dn.month < 1:
+            dn.year -= 1
+            dn.month += 12
+        return dn
+
+    def prev_weekday(self,d,weekday):
+        return d - timedelta(d.weekday())
+
     def lookups(self, request, model_admin):
         return (
-            ('man', ('Mañana')),
-            ('tarde', _('Tarde')),
-            ('noche', _('Noche')),
+            ('man', ('Hoy a la mañana')),
+            ('tarde', _('Hoy a la tarde')),
+            ('noche', _('Hoy a la noche')),
             ('proxsem',_('Semana Siguiente')),
             ('semant',_('Semana Anterior')),
             ('proximomes',_('Mes Siguiente')),
@@ -68,8 +77,17 @@ class FiltrarPorFechaDeHoy(admin.SimpleListFilter):
         if self.value() == 'proxsem':
             proxsemana = self.next_weekday(datetime.now(),0)
             proxsemana = self.next_weekday(proxsemana,0)
-            return queryset.filter(fecha__gte=self.next_weekday(datetime.now(), 0),
+            return queryset.filter(fecha__gte=self.next_weekday(date.today(), 0),
                                    fecha__lte=proxsemana)
+
+        if self.value() == 'semant':
+            return queryset.filter(fecha__gte=self.prev_month(date.today(), 1),
+                                   fecha__lte=date.today()-timedelta(days=date.today().weekday()))
+
+        if self.value() == 'mesanterior':
+            return queryset.filter(fecha__gte=self.prev_month(datetime.now(), 1),
+                                   fecha__lte=date.today()-timedelta(days=date.today().day))
+
         if self.value() == 'proximomes':
             return queryset.filter(fecha__gte=self.next_month(datetime.now(), 1),
                                    fecha__lte=self.next_month(datetime.now(), 2))
@@ -412,7 +430,7 @@ class TurnoAdmin(DynamicRawIDMixin,admin.ModelAdmin):
     dynamic_raw_id_fields = ('se_atiende',)
     list_display = ('get_dia','get_hora','se_atiende','razon','nota')
     #list_filter = ('fecha','razon',)
-    list_filter = (FiltrarPorFechaDeHoy,)
+    list_filter = (FiltrarPorFechaDeHoy,'razon')
     ordering = ('fecha',)
 
     def get_dia(self,obj):
@@ -420,6 +438,7 @@ class TurnoAdmin(DynamicRawIDMixin,admin.ModelAdmin):
     get_dia.short_description = 'Fecha'
 
     def get_hora(self,obj):
+        obj.fecha = obj.fecha - timedelta(hours=3)
         return obj.fecha.time()
     get_hora.short_description = 'Hora'
 
