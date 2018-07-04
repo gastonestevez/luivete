@@ -3,4 +3,47 @@
 <title>Login web :)</title>
 <h1 id="site-name"><a href="{% url 'admin:index' %}">Gebo</a></h1>
 {% endblock %}
-{% block nav-global %}{% endblock %}
+
+
+{% block footer %}
+<button onclick="doBackupFunc()" id="backBtn" title="Go to top"><b>Realizar Backup</b></button>
+<style>
+#backBtn {
+  position: fixed;
+  bottom: 20px;
+  left: 30px;
+  font-size: 12px;
+  border: 2px solid black;
+  border-radius: 5px;
+  outline: none;
+  background-color: #e0e0e0;
+  color: black;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 12px;
+  -webkit-transition-duration: 0.5s; /* Safari */
+    transition-duration: 0.5s;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+#backBtn:hover {
+  background-color: #000000;
+  color: white;
+}
+</style>
+<script>
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+        document.getElementById("backBtn").style.display = "block";
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function doBackupFunc() {
+    window.alert("Aca deberia hacer un ZIP con todo el backup de la bdd...");
+
+}
+
+</script>
+{% endblock %}
