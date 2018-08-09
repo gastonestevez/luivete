@@ -24,8 +24,8 @@ from evet import views
 urlpatterns = [
     url(r'^', admin.site.urls),
     url(r'^admin/dynamic_raw_id/', include('dynamic_raw_id.urls')),
-    url(r'^turnos/',views.index,name='index'),
-    url(r'^evet/turno/(?P<pk>[0-9]+)/change/',views.modificarTurno,name='modificar')
+    url(r'^backexport/',views.output,name='output'),
+  #  url(r'^evet/turno/(?P<pk>[0-9]+)/change/',views.modificarTurno,name='modificar')
 ]
 
 if settings.DEBUG:

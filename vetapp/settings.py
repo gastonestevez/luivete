@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'tabbed_admin',
     'stdimage',
     'dynamic_raw_id',
+    'dbbackup',
 ]
 
 

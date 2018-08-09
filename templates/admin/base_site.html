@@ -6,10 +6,9 @@
 
 
 {% block footer %}
-<button onclick="doBackupFunc()" id="backBtn" title="Go to top"><b>Realizar Backup</b></button>
+<button id="backBtn"><a href="backexport">Realizar backup</a></button>
 <button onclick="topFunction()" id="myBtn" title="Go to top"><b>&#8593;</b></button>
 <button onclick="downFunction()" id="myBtn2" title="Go to top"><b>&#8595;</b></button>
-
 <style>
 #myBtn {
   display: none;
@@ -93,10 +92,6 @@ function scrollFunction() {
 }
 
 // When the user clicks on the button, scroll to the top of the document
-function doBackupFunc() {
-    window.alert("Aca deberia hacer un ZIP con todo el backup de la bdd...");
-
-}
 
 function topFunction() {
     document.body.scrollTop = 0;
@@ -107,6 +102,5 @@ function downFunction(){
     document.body.scrollTop = document.body.scrollHeight;
     document.documentElement.scrollTop = document.body.scrollHeight;
 }
-
 </script>
 {% endblock %}

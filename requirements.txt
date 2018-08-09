@@ -9,3 +9,4 @@ gunicorn
 dj_database_url
 django-stdimage
 django-dynamic-raw-id
+django-dbbackup

@@ -9,11 +9,7 @@ from django.http import HttpResponse
 # Create your views here.
 
 def index(request):
-    startdate = datetime.datetime.now().date()
-    enddate = startdate + timedelta(days=365)
-    turnos = Turno.objects.filter(fecha__range=[startdate, enddate])
-    return render(request,'evet/turnos.html', {'turnos':turnos,
-                                               'range':range(10),})
+  return render(request, 'evet/index.html')
 
-def modificarTurno(request):
-    pass
+def output(request):
+    return render(request, 'evet/backexport.html', {'output': 'OK! 200'})
