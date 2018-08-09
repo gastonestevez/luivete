@@ -111,6 +111,9 @@ class Turno(models.Model):
         ('Vacuna','Vacuna'),
         ('Peluqueria','Peluqueria'),
         ('Cirugía','Cirugía'),
+        ('Consulta','Consulta'),
+        ('Especialidad','Especialidad'),
+        ('Ecografia/Rayos','Ecografia/Rayos'),
     )
 
     fecha = models.DateTimeField('Proxima visita')
@@ -118,6 +121,8 @@ class Turno(models.Model):
     se_atiende = models.ForeignKey(Mascota,on_delete=models.CASCADE,verbose_name='Mascota')
     nota = models.TextField('Nota',blank=True,null=True)
 
+    def __str__(self):
+        return 'Turno para: ' + '%s' % self.razon + ' el dia ' + str(self.fecha.strftime("%d-%m-%Y"))
 
 class HistorialTarjeta(models.Model):
     auscultacion_choice = (
