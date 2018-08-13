@@ -53,6 +53,8 @@ class FiltrarPorFechaDeHoy(admin.SimpleListFilter):
             ('man', ('Hoy a la mañana')),
             ('tarde', _('Hoy a la tarde')),
             ('noche', _('Hoy a la noche')),
+            ('sigdia', _('Dia siguiente')),
+            ('antdia', _('Dia Anterior')),
             ('proxsem',_('Semana Siguiente')),
             ('semant',_('Semana Anterior')),
             ('proximomes',_('Mes Siguiente')),
@@ -61,6 +63,14 @@ class FiltrarPorFechaDeHoy(admin.SimpleListFilter):
         )
 
     def queryset(self, request, queryset):
+        if self.value() == 'antdia':
+            return queryset.filter(fecha__gte=datetime(datetime.now().year,datetime.now().month,datetime.now().day-1,00,00),
+                                   fecha__lte=datetime(datetime.now().year,datetime.now().month,datetime.now().day-1,23,59))
+        if self.value() == 'sigdia':
+            return queryset.filter(
+                fecha__gte=datetime(datetime.now().year, datetime.now().month, datetime.now().day + 1, 00, 00),
+                fecha__lte=datetime(datetime.now().year, datetime.now().month, datetime.now().day + 1, 23, 59))
+
         if self.value() == 'man':
             return queryset.filter(fecha__gte=date(datetime.now().year,datetime.now().month,datetime.now().day),
                                    fecha__lte=datetime(datetime.now().year,datetime.now().month,datetime.now().day,12,59))
@@ -202,12 +212,13 @@ class HistorialInline(DynamicRawIDMixin,admin.StackedInline):
                        'enObservasion_bool',),)
         }),
         ('Ficha', {
+            'classes': ('collapse', 'open'),
             'fields': ('ficha','atendido_por','aplicacion_text',)
         }),
     )
     extra = 0
     ordering = ('-fecha_realizada',)
-    classes = ['collapse']
+    #classes = ['collapse']
     verbose_name = "Visita anterior"
     verbose_name_plural = "Visitas anteriores"
 
@@ -295,7 +306,8 @@ class HistorialAdmin(admin.ModelAdmin):
                 'linfonodulos_texto',)
         }),
         ('Sistema Circulatorio', {
-            'fields': ('auscultacion_text',
+            'fields': ('frecuencia_cardiaca',
+                'auscultacion_text',
                 'auscultacion_ritmo_text',
                 'auscultacion_sonidos_text',
                 'soplo_text',
