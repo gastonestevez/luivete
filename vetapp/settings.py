@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import dbsettings
+from django.utils import timezone
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -23,6 +25,7 @@ SECRET_KEY = 'v(65$^ums+8&@b9ad2lkca4o)9*&eeliea^%(4^ic=_e!mt)l!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+SYNCHRO_DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1','.herokuapp.com','192.168.1.100','192.168.1.105','192.168.1.131','25.86.195.124']
 
@@ -42,6 +45,8 @@ INSTALLED_APPS = [
     'stdimage',
     'dynamic_raw_id',
     'dbbackup',
+    'synchro',
+    'dbsettings',
 ]
 
 
@@ -81,14 +86,25 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'vetapp.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'luivetdblocal',
+        'USER': 'postgres',
+        'PASSWORD': 'root',
+        'HOST': 'localhost',
+        'PORT': '5433',
+    },
+    'remote': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'luivetdb',
+        'USER': 'postgres',
+        'PASSWORD': 'root',
+        'HOST': 'localhost',
+        'PORT': '5433',
     }
 }
 
@@ -126,7 +142,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -141,3 +157,20 @@ TABBED_ADMIN_USE_JQUERY_UI = True
 STATICFILES_DIRS = (
   os.path.join(BASE_DIR, 'static'),
 )
+
+SYNCHRO_REMOTE = 'remote'
+SYNCHRO_MODELS = (
+    'auth',
+    #'evet',
+)
+
+SYNCHRO_DATETIME_INPUT_FORMATS = ('%Y-%m-%d %H:%M:%S.%f',)
+
+
+class DateTimeMsValue(dbsettings.DateTimeValue):
+    formats_source = 'SYNCHRO_DATETIME_INPUT_FORMATS'
+
+
+class SynchroSettings(dbsettings.Group):
+    last_check = DateTimeMsValue('Last synchronization', default=timezone.now)
+

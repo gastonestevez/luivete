@@ -25,6 +25,8 @@ urlpatterns = [
     url(r'^', admin.site.urls),
     url(r'^admin/dynamic_raw_id/', include('dynamic_raw_id.urls')),
     url(r'^backexport/',views.output,name='output'),
+    url(r'^synchro/', include('synchro.urls', 'synchro', 'synchro')),
+
   #  url(r'^evet/turno/(?P<pk>[0-9]+)/change/',views.modificarTurno,name='modificar')
 ]
 
