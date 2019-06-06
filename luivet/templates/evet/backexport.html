@@ -1,0 +1,22 @@
+{% extends "admin/base.html" %}
+
+{% load i18n %}
+
+
+{% block sidebar %}
+    {{block.super}}
+    <div>
+        <h1>Extra links</h1>
+        <a href="/admin/extra/">My extra link</a>
+    </div>
+{% endblock %}
+
+
+{% block object-tools %}
+<app_label>HOLA</app_label>
+<p>Backups disponibles</p>
+<p>
+    <button>Imagenes</button>
+    <button>Base de datos</button>
+</p>
+{% endblock %}

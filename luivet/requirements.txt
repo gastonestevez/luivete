@@ -1,0 +1,11 @@
+sorl-thumbnail==12.4.1
+pbr
+whitenoise==3.3.1
+Django==1.11.13
+django_tabbed_admin==1.0.3
+psycopg2
+gunicorn
+dj_database_url
+django-stdimage
+django-dynamic-raw-id
+django-dbbackup

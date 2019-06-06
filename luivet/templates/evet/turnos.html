@@ -1,0 +1,72 @@
+{% extends 'evet/base.html' %}
+{% block content %}
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Turnos</a>
+    </div>
+
+    <form class="form-inline">
+        <div class="form-group">
+            <input type="date" class="form-control mr-sm-2" name="searchdate">
+        </div>
+            <button type="submit" class="btn btn-success">Buscar</button>
+    </form>
+  </div>
+</nav>
+
+<p>
+    <div class="container">
+    <h3>Horarios</h3>
+        <hr>
+        {% load filtro %}
+
+        <div class="row">
+        {% for value in 7|range:22 %}
+            <div class="col-md-1">
+                <div><h5><kbd>{{value}}</kbd></h5>
+                <hr>
+                    X<br>X<br>X<br>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+
+ </p>
+
+<hr>
+<p>
+    <div class="container">
+    <h3>Horarios</h3>
+        <hr>
+        {% load filtro %}
+
+        <div>
+        {% for value in 7|range:22 %}
+            <div class="row">
+                <div><h5><kbd>{{value}}</kbd></h5>
+                <p><hr>X<br>X<br>X<br></p>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+
+ </p>
+{% endblock %}
+<!--
+<div class="container">
+    <p>
+
+    <div class="row">
+        {% for turno in turnos %}
+            {% include 'evet/_calendar_entry.html' %}
+        {% endfor %}
+    </div>
+    </p>
+</div>
+-->
+
+
+

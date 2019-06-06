@@ -1,0 +1,37 @@
+@charset "utf-8";
+/* CSS Document */
+*{
+	box-sizing: border-box;
+}
+
+
+.container {
+	width: 1200px;
+	margin: 0 auto;
+}
+
+#articulos, #pieDePagina, #encabezado {
+	float: left;
+	overflow: hidden;
+	width: 100%;
+	margin: 0 auto;
+}
+#articulos article.producto{
+	float: left;
+	overflow: auto;
+	width: 500px;
+	height: 300px;
+	margin: 20px;
+	padding: 10px;
+	border-radius: 15px;
+	background-color: antiquewhite
+}
+
+#articulos article.producto h1{
+	font-size: 36px;
+}
+
+
+
+
+

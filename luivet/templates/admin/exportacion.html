@@ -1,0 +1,43 @@
+{% block content %}
+{% csrf_token %}
+
+  <h1>Historial Clinico</h1>
+  </p>
+    {% for mascota in Mascotas %}
+    <h2>Paciente</h2>
+    <hr>
+      <p>
+        <td colspan="3">
+        {{ mascota.foto.url }}
+        <img src="{{ mascota.foto.url }}" style="height:50px;width:50px;"/> <br>
+        </td>
+        <b>Nombre:</b> {{ mascota.nombre_texto }} <br>
+        <b>Numero de identificacion:</b> {{ mascota.id }} <br>
+        <b>Raza:</b> {{ mascota.raza_texto }} <br>
+        <b>Edad:</b> {{ mascota.edad_texto }} <br>
+      </p>
+  <hr><hr>
+  <h2>Fichas medicas</h2>
+  <hr>
+      {% for historial in Historiales %}
+    <p>
+      <b>Fecha y hora:</b> {{historial.fecha_realizada }} <br>
+      <b>Peso:</b> {{ historial.peso_texto}} <br>
+      <b>Temperatura:</b> {{ historial.temperatura_texto}} <br>
+      <b>Frecuencia Respiratoria:</b> {{ historial.frecuencia_respiratoria_texto}} <br>
+      <b>Linfonódulos:</b> {{ historial.linfonodulos_texto }} <br>
+      <h3>Sistema circulatorio</h3>
+        <b>Frecuencia Cardíaca:</b> {{ historial.frecuencia_cardiaca}} <br>
+        <b>Auscultación Tipo:</b> {{ historial.auscultacion_text }} <br>
+        <b>Ritmo:</b> {{ historial.auscultacion_ritmo_text }} <br>
+        <b>Sonidos:</b> {{ historial.auscultacion_sonidos_text}} <br>
+        <b>Soplo:</b> {{ historial.soplo_text}} <br>
+    </p>
+    <hr>
+      {% endfor %}
+  {% endfor %}
+  <p>
+    Informe exportado con fecha: {{FECHA_DE_HOY}}
+  </p>
+<p>
+{% endblock %}
